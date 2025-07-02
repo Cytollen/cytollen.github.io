@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Motto. Etc.
+subtitle: /
 
 profile:
   align: right
@@ -27,3 +27,5 @@ latest_posts:
 ---
 
 Welcome to my page! I'm a current a PhD student at [Purdue Industrial Engineering](https://engineering.purdue.edu/IE) working with [Prof. Harsha Honnappa](https://engineering.purdue.edu/SSL/about). Previously, I obtained my BA in Physics from [Reed College](https://www.reed.edu) (working with [Prof. Darrell Schroeter](https://people.reed.edu/~schroetd/)) and my MS in Statistics from Purdue University. 
+
+
