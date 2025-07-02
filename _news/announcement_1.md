@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Today, my personal website is born!
+My personal website is born today!

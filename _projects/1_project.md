@@ -1,6 +1,6 @@
 ---
 layout: page
-title: project 1
+title: Simulation-Based Confidence Intervals
 description: with background image
 img: assets/img/12.jpg
 importance: 1
