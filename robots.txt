@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://xinlongdu.github.io/sitemap.xml
+Sitemap: https://Cytollen.github.io/sitemap.xml
