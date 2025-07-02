@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://Cytollen.github.io/sitemap.xml
+Sitemap: https://cytollen.github.io/sitemap.xml
