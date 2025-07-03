@@ -57,12 +57,7 @@ ninja.data = [{
             },},{id: "news-my-personal-website-is-born-today",
           title: 'My personal website is born today!',
           description: "",
-          section: "News",},{id: "projects-simulation-based-confidence-intervals",
-          title: 'Simulation-Based Confidence Intervals',
-          description: "with background image",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/1_project/";
-            },},{
+          section: "News",},{
         id: 'social-email',
         title: 'email',
         section: 'Socials',
