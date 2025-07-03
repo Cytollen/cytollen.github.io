@@ -4,11 +4,12 @@ title: SimBaRepro
 description: Simulation-based, Finite-sample Inference for Privatized Data
 img: assets/img/package_figures/package_illustration.png
 importance: 1
-category: coding
+category: work
 related_publications: true
+references:
+	- text: "Project based on:"
+	- url: "https://www.tandfonline.com/doi/full/10.1080/01621459.2024.2427436"
 ---
-
-Markdown: Open Preview
 
 In 2024-25, I had the honor of working with <a href="https://jordan-awan.com">Prof. Jordan Awan</a> and <a href="https://scholar.google.com/citations?user=_8eFuswAAAAJ&hl=en">Zhanyu Wang</a> to turn their <a href="https://www.tandfonline.com/doi/full/10.1080/01621459.2024.2427436">research paper</a> into an R package published on CRAN.
 
@@ -35,4 +36,4 @@ Through simulation-based methods, users can obtain p-values for hypothesis tests
     The figure on the left shows a two-dimensional confidence region (1 indicates inclusion), and we can visualize it easily with the built-in `plot_grid` function (figure on the right).
 </div>
 
-For more details about the package, see <a href="https://cran.r-project.org/web/packages/SimBaRepro/index.html">SimBaRepro</a>.
+To use the package or to see more details, see <a href="https://cran.r-project.org/web/packages/SimBaRepro/index.html">SimBaRepro</a>.
