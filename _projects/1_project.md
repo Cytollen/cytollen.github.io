@@ -10,7 +10,7 @@ related_publications: true
 
 Markdown: Open Preview
 
-In 2024-25, I had the honor of working with <a href="https://jordan-awan.com">Prof. Jordan Awan</a> and <a href="https://scholar.google.com/citations?user=_8eFuswAAAAJ&hl=en">Zhanyu Wang</a> to turn their <a href="https://www.tandfonline.com/doi/full/10.1080/01621459.2024.2427436">research paper</a> into an R package published on CRAN. 
+In 2024-25, I had the honor of working with <a href="https://jordan-awan.com">Prof. Jordan Awan</a> and <a href="https://scholar.google.com/citations?user=_8eFuswAAAAJ&hl=en">Zhanyu Wang</a> to turn their <a href="https://www.tandfonline.com/doi/full/10.1080/01621459.2024.2427436">research paper</a> into an R package published on CRAN.
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
@@ -21,7 +21,7 @@ In 2024-25, I had the honor of working with <a href="https://jordan-awan.com">Pr
     This figure shows a rough description of the main idea behind the paper by Awan and Wang.
 </div>
 
-Through simulation-based methods, users can obtain p-values for hypothesis tests, confidence intervals, and multivariate confidence regions. Multivariate confidence regions can also be projected down to two-dimensional confidence region before they can be visualized. 
+Through simulation-based methods, users can obtain p-values for hypothesis tests, confidence intervals, and multivariate confidence regions. Multivariate confidence regions can also be projected down to two-dimensional confidence region before they can be visualized.
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-8 mt-3 mt-md-0">
