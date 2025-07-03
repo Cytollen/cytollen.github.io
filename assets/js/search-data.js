@@ -57,7 +57,12 @@ ninja.data = [{
             },},{id: "news-my-personal-website-is-born-today",
           title: 'My personal website is born today!',
           description: "",
-          section: "News",},{
+          section: "News",},{id: "projects-simbarepro",
+          title: 'SimBaRepro',
+          description: "Simulation-based, Finite-sample Inference for Privatized Data",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/1_project/";
+            },},{
         id: 'social-email',
         title: 'email',
         section: 'Socials',
