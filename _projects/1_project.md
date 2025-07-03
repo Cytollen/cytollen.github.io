@@ -6,9 +6,6 @@ img: assets/img/package_figures/package_illustration.png
 importance: 1
 category: work
 related_publications: true
-references:
-	- text: "Project based on:"
-	- url: "https://www.tandfonline.com/doi/full/10.1080/01621459.2024.2427436"
 ---
 
 In 2024-25, I had the honor of working with <a href="https://jordan-awan.com">Prof. Jordan Awan</a> and <a href="https://scholar.google.com/citations?user=_8eFuswAAAAJ&hl=en">Zhanyu Wang</a> to turn their <a href="https://www.tandfonline.com/doi/full/10.1080/01621459.2024.2427436">research paper</a> into an R package published on CRAN.
