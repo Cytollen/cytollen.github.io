@@ -2,7 +2,7 @@
 layout: page
 title: SimBaRepro
 description: Simulation-based, Finite-sample Inference for Privatized Data
-img: assets/img/package_figures/package_illustration
+img: assets/img/package_figures/package_illustration.png
 importance: 1
 category: coding
 related_publications: true
@@ -12,7 +12,7 @@ Markdown: Open PreviewIn 2024-25, I had the honor of working with <a href="https
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/package_figures/package_illustration" title="package illustration" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/package_figures/package_illustration.png" title="package illustration" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
@@ -23,10 +23,10 @@ Through simulation-based methods, users can obtain p-values for hypothesis tests
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/package_images/indicator_array" title="indicator array" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/package_images/indicator_array.png" title="indicator array" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/package_images/confidence_region" title="2d plot of the array" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/package_images/confidence_region.png" title="2d plot of the array" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
