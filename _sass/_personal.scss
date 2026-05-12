@@ -1,0 +1,273 @@
+/*******************************************************************************
+ * Personal page
+ ******************************************************************************/
+
+.personal-page {
+  --personal-route-color: #fc4c02;
+  --personal-route-color-soft: #f68b55;
+  --personal-panel-bg: rgba(130, 130, 130, 0.08);
+  --personal-panel-bg-strong: rgba(130, 130, 130, 0.14);
+
+  .personal-intro {
+    max-width: 42rem;
+    margin-bottom: 1.5rem;
+    color: var(--global-text-color-light);
+    font-size: 1.05rem;
+  }
+
+  .personal-activity-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+
+    a {
+      border: 1px solid var(--global-divider-color);
+      border-radius: 6px;
+      padding: 0.35rem 0.75rem;
+      color: var(--global-text-color);
+      text-decoration: none;
+      line-height: 1.2;
+
+      &:hover {
+        border-color: var(--global-theme-color);
+        color: var(--global-theme-color);
+        text-decoration: none;
+      }
+    }
+  }
+
+  .personal-section {
+    padding: 1.75rem 0 2.25rem;
+    border-top: 1px solid var(--global-divider-color);
+  }
+
+  .personal-section-heading {
+    margin-bottom: 1rem;
+
+    h2 {
+      margin: 0;
+      font-size: 1.55rem;
+      letter-spacing: 0;
+    }
+  }
+
+  .personal-section-kicker {
+    margin: 0 0 0.15rem;
+    color: var(--global-text-color-light);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .personal-note {
+    border-left: 3px solid var(--global-theme-color);
+    padding: 0.75rem 0 0.75rem 1rem;
+    color: var(--global-text-color-light);
+  }
+
+  .personal-bike-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin: 1rem 0;
+
+    div {
+      min-width: 0;
+      border: 1px solid var(--global-divider-color);
+      border-radius: 8px;
+      padding: 0.75rem;
+      background: var(--personal-panel-bg);
+    }
+
+    span {
+      display: block;
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    small {
+      display: block;
+      color: var(--global-text-color-light);
+      line-height: 1.3;
+    }
+  }
+
+  .personal-bike-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 300px);
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .personal-ride-map {
+    min-height: 380px;
+    height: clamp(380px, 58vh, 620px);
+    border: 1px solid var(--global-divider-color);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #24313a;
+  }
+
+  .personal-map-fallback {
+    display: grid;
+    min-height: 100%;
+    place-items: center;
+    padding: 1rem;
+    color: #ffffff;
+  }
+
+  .personal-ride-panel {
+    min-height: 380px;
+    border: 1px solid var(--global-divider-color);
+    border-radius: 8px;
+    padding: 1rem;
+    background: var(--personal-panel-bg);
+  }
+
+  .personal-ride-panel h3 {
+    margin: 0 0 0.35rem;
+    font-size: 1.15rem;
+  }
+
+  .personal-ride-panel p {
+    margin-bottom: 0.75rem;
+  }
+
+  .personal-ride-meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.55rem;
+    margin: 0.9rem 0 1rem;
+
+    div {
+      border-top: 1px solid var(--global-divider-color);
+      padding-top: 0.45rem;
+    }
+
+    span {
+      display: block;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    small {
+      color: var(--global-text-color-light);
+    }
+  }
+
+  .personal-ride-gallery {
+    display: grid;
+    gap: 0.5rem;
+    margin-top: 1rem;
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
+      border: 1px solid var(--global-divider-color);
+    }
+  }
+
+  .personal-ride-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    padding: 0;
+    margin: 1rem 0 0;
+    list-style: none;
+  }
+
+  .personal-ride-list li {
+    min-width: 0;
+    border: 1px solid var(--global-divider-color);
+    border-radius: 8px;
+    background: var(--personal-panel-bg);
+  }
+
+  .personal-ride-list button,
+  .personal-ride-static {
+    display: block;
+    width: 100%;
+    min-height: 5.5rem;
+    border: 0;
+    padding: 0.8rem;
+    background: transparent;
+    text-align: left;
+  }
+
+  .personal-ride-list button {
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+      outline: none;
+      background: var(--personal-panel-bg-strong);
+    }
+  }
+
+  .personal-ride-date,
+  .personal-ride-subtitle {
+    display: block;
+    color: var(--global-text-color-light);
+    font-size: 0.85rem;
+    line-height: 1.35;
+  }
+
+  .personal-ride-title {
+    display: block;
+    margin: 0.2rem 0;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .personal-photo-tag {
+    display: inline-block;
+    margin-top: 0.35rem;
+    border: 1px solid var(--personal-route-color);
+    border-radius: 6px;
+    padding: 0.1rem 0.35rem;
+    color: var(--personal-route-color);
+    font-size: 0.75rem;
+    line-height: 1.25;
+  }
+
+  .leaflet-container {
+    font: inherit;
+  }
+
+  .leaflet-interactive.personal-route-photo-ready {
+    cursor: pointer;
+  }
+
+  .leaflet-interactive.personal-route-no-photos {
+    cursor: default;
+  }
+}
+
+html[data-theme="dark"] .personal-page {
+  --personal-panel-bg: rgba(255, 255, 255, 0.045);
+  --personal-panel-bg-strong: rgba(255, 255, 255, 0.08);
+
+  .personal-map-tiles {
+    filter: brightness(0.76) contrast(1.18) saturate(0.75);
+  }
+}
+
+@media (max-width: 768px) {
+  .personal-page {
+    .personal-bike-stats,
+    .personal-ride-list {
+      grid-template-columns: 1fr;
+    }
+
+    .personal-bike-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .personal-ride-panel {
+      min-height: 0;
+    }
+  }
+}
