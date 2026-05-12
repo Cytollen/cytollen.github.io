@@ -1,1 +1,500 @@
-(()=>{"use strict";function t(t){return t.split("").reduce(((e,n,o)=>e+(L[n]||L[" "])[0].length+(o===t.length-1?0:T)),0)}function e(t){const e=new Int8Array(V);e.fill(-1);let n=F;for(const o of t){const t=L[o]||L[" "];t.forEach(((t,o)=>{for(let r=0;r<t.length;r+=1)"1"===t[r]&&(e[(o+S)*D+n+r]=1)})),n+=t[0].length+T}return e}function n(){H=0;for(let t=0;t<V;t+=1){const e=Math.random()<.54;z[t]=e?W[t]:-W[t],H+=W[t]*z[t]}}function o(){H=0;for(let t=0;t<V;t+=1)z[t]=Math.random()<.5?1:-1,H+=W[t]*z[t]}function r(t){H=0;for(let e=0;e<V;e+=1)z[e]=t,H+=W[e]*z[e]}function i(t,e){const n=z[t];n!==e&&(z[t]=e,H+=W[t]*(e-n))}function a(t){i(t,nt),ot=t}function l(t){-1!==ot?t!==ot&&(c(ot,t),ot=t):a(t)}function c(t,e){let n=t%D,o=Math.floor(t/D);const r=e%D,a=Math.floor(e/D),l=Math.abs(r-n),c=Math.abs(a-o),f=n<r?1:-1,h=o<a?1:-1;let u=l-c;for(;i(o*D+n,nt),n!==r||o!==a;){const t=2*u;t>-c&&(u-=c,n+=f),t<l&&(u+=l,o+=h)}}function f(t){const e=d(t);null!==e&&(t.preventDefault(),m(),et=!0,nt=1,ot=-1,R.setPointerCapture&&R.setPointerCapture(t.pointerId),l(e),b(),M())}function h(t){if(!et)return;const e=d(t);null!==e&&e!==ot&&(t.preventDefault(),l(e),b(),M())}function u(t){et&&(et=!1,ot=-1,R.hasPointerCapture&&R.hasPointerCapture(t.pointerId)&&R.releasePointerCapture(t.pointerId))}function s(t){const e=t.currentTarget.dataset.hopfieldAction;m(),et=!1,ot=-1,"shuffle"===e?o():"clear"===e&&r(-1),b(),M()}function d(t){it||b();const e=R.getBoundingClientRect(),n=t.clientX-e.left,o=t.clientY-e.top,r=Math.floor((n-it.startX)/it.cell),i=Math.floor((o-it.startY)/it.cell);return n<it.startX||o<it.startY||n>it.startX+it.gridWidth||o>it.startY+it.gridHeight||r<0||r>=D||i<0||i>=O?null:i*D+r}function m(){J=!1,_=0,tt=0,Q&&(cancelAnimationFrame(Q),Q=0),Z&&(cancelAnimationFrame(Z),Z=0),K&&(clearTimeout(K),K=0)}function M(){K&&(clearTimeout(K),K=0),Z&&(cancelAnimationFrame(Z),Z=0),_=performance.now()+B,tt=0,K=window.setTimeout((()=>{K=0,_=0,tt=0,p()}),B),g(performance.now())}function g(t){const e=Math.max(0,_-t);tt=1-e/B,X&&(X.textContent=`recall in ${Math.ceil(e/1e3)}s`),b(),Z=e>0&&_>0?requestAnimationFrame(g):0}function p(){if(m(),w(),X&&(X.textContent="recalling"),G)return y(),void b();J=!0,Q=requestAnimationFrame(v)}function w(){U=0,$=0,j=0}function x(){const t=Math.floor(Math.random()*V),e=z[t],n=W[t],o=n*((H-n*e)/V)+q*n>=0?1:-1;o!==e&&(z[t]=o,H+=n*(o-e),$+=1)}function v(){if(!J)return void(Q=0);const t=Math.max(18,Math.floor(V/18));for(let e=0;e<t;e+=1)x(),U+=1,U%V==0&&(j=0===$?j+1:0,X&&(X.textContent=`${Math.floor(U/V)} sweeps`),$=0);if(b(),j>=2||U>28*V)return J=!1,Q=0,void(X&&(X.textContent="settled"));Q=requestAnimationFrame(v)}function y(){for(let t=0;t<28;t+=1){let t=0;for(let e=0;e<V;e+=1){const e=H;x(),H!==e&&(t+=1)}if(0===t)break}X&&(X.textContent="settled")}function C(){const t=R.getBoundingClientRect(),e=window.devicePixelRatio||1,n=Math.max(1,Math.round(t.width)),o=Math.max(1,Math.round(t.height)),r=Math.max(1,Math.round(n*e)),i=Math.max(1,Math.round(o*e));return R.width===r&&R.height===i&&rt.width===n&&rt.height===o&&rt.ratio===e||(R.width=r,R.height=i,rt={height:o,ratio:e,width:n}),N.setTransform(e,0,0,e,0,0),rt}function E(t,e){const n=Math.max(8,Math.floor(.03*t)),o=Math.max(8,Math.floor(.08*e)),r=14,i=Math.max(1,t-2*n),a=Math.max(1,e-2*o-r),l=Math.max(1,Math.floor(Math.min(i/D,a/O))),c=l*D,f=l*O,h=Math.floor((t-c)/2),u=Math.floor(o+(a-f)/2),s=Math.max(1,Math.floor(.15*l));return{block:Math.max(1,l-s),cell:l,gridHeight:f,gridWidth:c,gutter:s,progressY:Math.min(e-2,u+f+r-4),startX:h,startY:u}}function b(){const{width:t,height:e}=C(),n=getComputedStyle(document.documentElement),o=n.getPropertyValue("--paper").trim()||"#fbfaf7",r=n.getPropertyValue("--ink").trim()||"#171717",i=n.getPropertyValue("--accent").trim()||"#245f73",a=n.getPropertyValue("--line").trim()||"#ded9d0";it=E(t,e),N.clearRect(0,0,t,e),N.fillStyle=o,N.fillRect(0,0,t,e);for(let t=0;t<O;t+=1)for(let e=0;e<D;e+=1){const n=z[t*D+e],o=it.startX+e*it.cell,i=it.startY+t*it.cell;N.fillStyle=1===n?r:a,N.fillRect(o,i,it.block,it.block)}const l=_>0?tt:A();N.fillStyle=a,N.fillRect(it.startX,it.progressY,it.gridWidth,1),N.fillStyle=i,N.fillRect(it.startX,it.progressY,Math.max(0,it.gridWidth*P(l)),2)}function A(){return P((H/V+1)/2)}function P(t){return Math.max(0,Math.min(1,t))}const R=document.getElementById("hopfield-name"),X=document.getElementById("hopfield-status"),I=document.querySelectorAll("[data-hopfield-action]");if(!R)return;const L={" ":["000","000","000","000","000","000","000"],D:["11110","10001","10001","10001","10001","10001","11110"],G:["01110","10001","10000","10111","10001","10001","01110"],I:["11111","00100","00100","00100","00100","00100","11111"],L:["10000","10000","10000","10000","10000","10000","11111"],N:["10001","11001","10101","10011","10001","10001","10001"],O:["01110","10001","10001","10001","10001","10001","01110"],U:["10001","10001","10001","10001","10001","10001","01110"],X:["10001","01010","00100","00100","00100","01010","10001"]},Y="XINLONG DU",k=7,F=2,S=3,T=1,q=.18,B=3e3,D=t(Y)+2*F,O=k+2*S,V=D*O,W=e(Y),z=new Int8Array(V),N=R.getContext("2d"),G=window.matchMedia("(prefers-reduced-motion: reduce)").matches;let H=0,U=0,$=0,j=0,J=!1,K=0,Q=0,Z=0,_=0,tt=0,et=!1,nt=1,ot=-1,rt={height:0,ratio:0,width:0},it=null;n(),b(),p(),R.addEventListener("pointerdown",f),R.addEventListener("pointermove",h),R.addEventListener("pointerup",u),R.addEventListener("pointercancel",u),window.addEventListener("resize",b),window.addEventListener("pageshow",b),I.forEach((t=>{t.addEventListener("click",s)})),"ResizeObserver"in window&&new ResizeObserver(b).observe(R)})();
+(() => {
+  "use strict";
+
+  const canvas = document.getElementById("hopfield-name");
+  const status = document.getElementById("hopfield-status");
+  const controls = document.querySelectorAll("[data-hopfield-action]");
+
+  if (!canvas) return;
+
+  const glyphs = {
+    " ": ["000", "000", "000", "000", "000", "000", "000"],
+    D: ["11110", "10001", "10001", "10001", "10001", "10001", "11110"],
+    G: ["01110", "10001", "10000", "10111", "10001", "10001", "01110"],
+    I: ["11111", "00100", "00100", "00100", "00100", "00100", "11111"],
+    L: ["10000", "10000", "10000", "10000", "10000", "10000", "11111"],
+    N: ["10001", "11001", "10101", "10011", "10001", "10001", "10001"],
+    O: ["01110", "10001", "10001", "10001", "10001", "10001", "01110"],
+    U: ["10001", "10001", "10001", "10001", "10001", "10001", "01110"],
+    X: ["10001", "01010", "00100", "00100", "00100", "01010", "10001"],
+  };
+
+  const text = "XINLONG DU";
+  const glyphHeight = 7;
+  const paddingX = 2;
+  const paddingY = 3;
+  const gap = 1;
+  const bias = 0.18;
+  const recallDelay = 3000;
+  const cols = textWidth(text) + paddingX * 2;
+  const rows = glyphHeight + paddingY * 2;
+  const nodeCount = cols * rows;
+  const target = makePattern(text);
+  const state = new Int8Array(nodeCount);
+  const context = canvas.getContext("2d");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  let overlap = 0;
+  let updates = 0;
+  let sweepChanges = 0;
+  let stableSweeps = 0;
+  let running = false;
+  let recallTimer = 0;
+  let frameId = 0;
+  let countdownFrameId = 0;
+  let recallDueAt = 0;
+  let tensionProgress = 0;
+  let painting = false;
+  let paintValue = 1;
+  let lastPaintedIndex = -1;
+  let canvasBox = { height: 0, ratio: 0, width: 0 };
+  let gridBox = null;
+
+  initializeState();
+  draw();
+  startRecall();
+
+  canvas.addEventListener("pointerdown", handlePointerDown);
+  canvas.addEventListener("pointermove", handlePointerMove);
+  canvas.addEventListener("pointerup", endPainting);
+  canvas.addEventListener("pointercancel", endPainting);
+  window.addEventListener("resize", draw);
+  window.addEventListener("pageshow", draw);
+
+  controls.forEach((control) => {
+    control.addEventListener("click", handleControlClick);
+  });
+
+  if ("ResizeObserver" in window) {
+    new ResizeObserver(draw).observe(canvas);
+  }
+
+  function textWidth(value) {
+    return value.split("").reduce((width, character, index) => {
+      const glyph = glyphs[character] || glyphs[" "];
+      return width + glyph[0].length + (index === value.length - 1 ? 0 : gap);
+    }, 0);
+  }
+
+  function makePattern(value) {
+    const pattern = new Int8Array(nodeCount);
+    pattern.fill(-1);
+
+    let cursor = paddingX;
+    for (const character of value) {
+      const glyph = glyphs[character] || glyphs[" "];
+
+      glyph.forEach((line, row) => {
+        for (let col = 0; col < line.length; col += 1) {
+          if (line[col] === "1") {
+            pattern[(row + paddingY) * cols + cursor + col] = 1;
+          }
+        }
+      });
+
+      cursor += glyph[0].length + gap;
+    }
+
+    return pattern;
+  }
+
+  function initializeState() {
+    overlap = 0;
+
+    for (let index = 0; index < nodeCount; index += 1) {
+      const followsMemory = Math.random() < 0.54;
+      state[index] = followsMemory ? target[index] : -target[index];
+      overlap += target[index] * state[index];
+    }
+  }
+
+  function shuffleState() {
+    overlap = 0;
+
+    for (let index = 0; index < nodeCount; index += 1) {
+      state[index] = Math.random() < 0.5 ? 1 : -1;
+      overlap += target[index] * state[index];
+    }
+  }
+
+  function setAll(value) {
+    overlap = 0;
+
+    for (let index = 0; index < nodeCount; index += 1) {
+      state[index] = value;
+      overlap += target[index] * state[index];
+    }
+  }
+
+  function setNode(index, value) {
+    const current = state[index];
+
+    if (current === value) return;
+
+    state[index] = value;
+    overlap += target[index] * (value - current);
+  }
+
+  function paintNode(index) {
+    setNode(index, paintValue);
+    lastPaintedIndex = index;
+  }
+
+  function paintPath(index) {
+    if (lastPaintedIndex === -1) {
+      paintNode(index);
+      return;
+    }
+
+    if (index === lastPaintedIndex) return;
+
+    paintLine(lastPaintedIndex, index);
+    lastPaintedIndex = index;
+  }
+
+  function paintLine(fromIndex, toIndex) {
+    let x0 = fromIndex % cols;
+    let y0 = Math.floor(fromIndex / cols);
+    const x1 = toIndex % cols;
+    const y1 = Math.floor(toIndex / cols);
+    const dx = Math.abs(x1 - x0);
+    const dy = Math.abs(y1 - y0);
+    const sx = x0 < x1 ? 1 : -1;
+    const sy = y0 < y1 ? 1 : -1;
+    let error = dx - dy;
+
+    while (true) {
+      setNode(y0 * cols + x0, paintValue);
+
+      if (x0 === x1 && y0 === y1) break;
+
+      const doubledError = error * 2;
+      if (doubledError > -dy) {
+        error -= dy;
+        x0 += sx;
+      }
+      if (doubledError < dx) {
+        error += dx;
+        y0 += sy;
+      }
+    }
+  }
+
+  function handlePointerDown(event) {
+    const index = nodeIndexAt(event);
+
+    if (index === null) return;
+
+    event.preventDefault();
+    pauseRecall();
+    painting = true;
+    paintValue = 1;
+    lastPaintedIndex = -1;
+
+    if (canvas.setPointerCapture) {
+      canvas.setPointerCapture(event.pointerId);
+    }
+
+    paintPath(index);
+    draw();
+    queueRecall();
+  }
+
+  function handlePointerMove(event) {
+    if (!painting) return;
+
+    const index = nodeIndexAt(event);
+
+    if (index === null || index === lastPaintedIndex) return;
+
+    event.preventDefault();
+    paintPath(index);
+    draw();
+    queueRecall();
+  }
+
+  function endPainting(event) {
+    if (!painting) return;
+
+    painting = false;
+    lastPaintedIndex = -1;
+
+    if (canvas.hasPointerCapture && canvas.hasPointerCapture(event.pointerId)) {
+      canvas.releasePointerCapture(event.pointerId);
+    }
+  }
+
+  function handleControlClick(event) {
+    const action = event.currentTarget.dataset.hopfieldAction;
+
+    pauseRecall();
+    painting = false;
+    lastPaintedIndex = -1;
+
+    if (action === "shuffle") {
+      shuffleState();
+    } else if (action === "clear") {
+      setAll(-1);
+    }
+
+    draw();
+    queueRecall();
+  }
+
+  function nodeIndexAt(event) {
+    if (!gridBox) draw();
+
+    const rect = canvas.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    const col = Math.floor((x - gridBox.startX) / gridBox.cell);
+    const row = Math.floor((y - gridBox.startY) / gridBox.cell);
+
+    if (
+      x < gridBox.startX ||
+      y < gridBox.startY ||
+      x > gridBox.startX + gridBox.gridWidth ||
+      y > gridBox.startY + gridBox.gridHeight ||
+      col < 0 ||
+      col >= cols ||
+      row < 0 ||
+      row >= rows
+    ) {
+      return null;
+    }
+
+    return row * cols + col;
+  }
+
+  function pauseRecall() {
+    running = false;
+    recallDueAt = 0;
+    tensionProgress = 0;
+
+    if (frameId) {
+      cancelAnimationFrame(frameId);
+      frameId = 0;
+    }
+
+    if (countdownFrameId) {
+      cancelAnimationFrame(countdownFrameId);
+      countdownFrameId = 0;
+    }
+
+    if (recallTimer) {
+      clearTimeout(recallTimer);
+      recallTimer = 0;
+    }
+  }
+
+  function queueRecall() {
+    if (recallTimer) {
+      clearTimeout(recallTimer);
+      recallTimer = 0;
+    }
+
+    if (countdownFrameId) {
+      cancelAnimationFrame(countdownFrameId);
+      countdownFrameId = 0;
+    }
+
+    recallDueAt = performance.now() + recallDelay;
+    tensionProgress = 0;
+
+    recallTimer = window.setTimeout(() => {
+      recallTimer = 0;
+      recallDueAt = 0;
+      tensionProgress = 0;
+      startRecall();
+    }, recallDelay);
+
+    updateCountdown(performance.now());
+  }
+
+  function updateCountdown(now) {
+    const remaining = Math.max(0, recallDueAt - now);
+    tensionProgress = 1 - remaining / recallDelay;
+
+    if (status) {
+      status.textContent = `recall in ${Math.ceil(remaining / 1000)}s`;
+    }
+
+    draw();
+
+    if (remaining > 0 && recallDueAt > 0) {
+      countdownFrameId = requestAnimationFrame(updateCountdown);
+    } else {
+      countdownFrameId = 0;
+    }
+  }
+
+  function startRecall() {
+    pauseRecall();
+    resetDynamics();
+
+    if (status) status.textContent = "recalling";
+
+    if (reducedMotion) {
+      settleSynchronously();
+      draw();
+      return;
+    }
+
+    running = true;
+    frameId = requestAnimationFrame(tick);
+  }
+
+  function resetDynamics() {
+    updates = 0;
+    sweepChanges = 0;
+    stableSweeps = 0;
+  }
+
+  function updateRandomNode() {
+    const index = Math.floor(Math.random() * nodeCount);
+    const current = state[index];
+    const memory = target[index];
+    const overlapWithoutSelf = overlap - memory * current;
+    const field = memory * (overlapWithoutSelf / nodeCount) + bias * memory;
+    const next = field >= 0 ? 1 : -1;
+
+    if (next !== current) {
+      state[index] = next;
+      overlap += memory * (next - current);
+      sweepChanges += 1;
+    }
+  }
+
+  function tick() {
+    if (!running) {
+      frameId = 0;
+      return;
+    }
+
+    const updatesPerFrame = Math.max(18, Math.floor(nodeCount / 18));
+
+    for (let count = 0; count < updatesPerFrame; count += 1) {
+      updateRandomNode();
+      updates += 1;
+
+      if (updates % nodeCount === 0) {
+        stableSweeps = sweepChanges === 0 ? stableSweeps + 1 : 0;
+        if (status) {
+          status.textContent = `${Math.floor(updates / nodeCount)} sweeps`;
+        }
+        sweepChanges = 0;
+      }
+    }
+
+    draw();
+
+    if (stableSweeps >= 2 || updates > nodeCount * 28) {
+      running = false;
+      frameId = 0;
+      if (status) status.textContent = "settled";
+      return;
+    }
+
+    frameId = requestAnimationFrame(tick);
+  }
+
+  function settleSynchronously() {
+    for (let sweep = 0; sweep < 28; sweep += 1) {
+      let changes = 0;
+
+      for (let count = 0; count < nodeCount; count += 1) {
+        const before = overlap;
+        updateRandomNode();
+        if (overlap !== before) changes += 1;
+      }
+
+      if (changes === 0) break;
+    }
+
+    if (status) status.textContent = "settled";
+  }
+
+  function syncCanvasSize() {
+    const rect = canvas.getBoundingClientRect();
+    const ratio = window.devicePixelRatio || 1;
+    const width = Math.max(1, Math.round(rect.width));
+    const height = Math.max(1, Math.round(rect.height));
+    const pixelWidth = Math.max(1, Math.round(width * ratio));
+    const pixelHeight = Math.max(1, Math.round(height * ratio));
+
+    if (
+      canvas.width !== pixelWidth ||
+      canvas.height !== pixelHeight ||
+      canvasBox.width !== width ||
+      canvasBox.height !== height ||
+      canvasBox.ratio !== ratio
+    ) {
+      canvas.width = pixelWidth;
+      canvas.height = pixelHeight;
+      canvasBox = { height, ratio, width };
+    }
+
+    context.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+    return canvasBox;
+  }
+
+  function calculateGrid(width, height) {
+    const outerPaddingX = Math.max(8, Math.floor(width * 0.03));
+    const outerPaddingY = Math.max(8, Math.floor(height * 0.08));
+    const progressGap = 14;
+    const usableWidth = Math.max(1, width - outerPaddingX * 2);
+    const usableHeight = Math.max(1, height - outerPaddingY * 2 - progressGap);
+    const cell = Math.max(1, Math.floor(Math.min(usableWidth / cols, usableHeight / rows)));
+    const gridWidth = cell * cols;
+    const gridHeight = cell * rows;
+    const startX = Math.floor((width - gridWidth) / 2);
+    const startY = Math.floor(outerPaddingY + (usableHeight - gridHeight) / 2);
+    const gutter = Math.max(1, Math.floor(cell * 0.15));
+    const block = Math.max(1, cell - gutter);
+    const progressY = Math.min(height - 2, startY + gridHeight + progressGap - 4);
+
+    return { block, cell, gridHeight, gridWidth, gutter, progressY, startX, startY };
+  }
+
+  function draw() {
+    const { width, height } = syncCanvasSize();
+    const styles = getComputedStyle(document.documentElement);
+    const paper = styles.getPropertyValue("--paper").trim() || "#fbfaf7";
+    const ink = styles.getPropertyValue("--ink").trim() || "#171717";
+    const accent = styles.getPropertyValue("--accent").trim() || "#245f73";
+    const line = styles.getPropertyValue("--line").trim() || "#ded9d0";
+
+    gridBox = calculateGrid(width, height);
+
+    context.clearRect(0, 0, width, height);
+    context.fillStyle = paper;
+    context.fillRect(0, 0, width, height);
+
+    for (let row = 0; row < rows; row += 1) {
+      for (let col = 0; col < cols; col += 1) {
+        const value = state[row * cols + col];
+        const x = gridBox.startX + col * gridBox.cell;
+        const y = gridBox.startY + row * gridBox.cell;
+
+        context.fillStyle = value === 1 ? ink : line;
+        context.fillRect(x, y, gridBox.block, gridBox.block);
+      }
+    }
+
+    const barProgress = recallDueAt > 0 ? tensionProgress : recallProgress();
+
+    context.fillStyle = line;
+    context.fillRect(gridBox.startX, gridBox.progressY, gridBox.gridWidth, 1);
+    context.fillStyle = accent;
+    context.fillRect(gridBox.startX, gridBox.progressY, Math.max(0, gridBox.gridWidth * clamp(barProgress)), 2);
+  }
+
+  function recallProgress() {
+    return clamp((overlap / nodeCount + 1) / 2);
+  }
+
+  function clamp(value) {
+    return Math.max(0, Math.min(1, value));
+  }
+})();
