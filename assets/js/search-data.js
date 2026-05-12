@@ -3,8 +3,8 @@ const ninja = document.querySelector('ninja-keys');
 
 // add the home and posts menu items
 ninja.data = [{
-    id: "nav-about",
-    title: "about",
+    id: "nav-xinlong-du",
+    title: "Xinlong Du",
     section: "Navigation",
     handler: () => {
       window.location.href = "/";
@@ -23,6 +23,13 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/projects/";
           },
+        },{id: "nav-personal",
+          title: "personal",
+          description: "piano, biking, and other off-hours notes",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/personal/";
+          },
         },{id: "post-enlargement-of-filtrations",
         
           title: "Enlargement of Filtrations",
@@ -39,7 +46,7 @@ ninja.data = [{
           description: "",
           section: "News",},{id: "projects-simbarepro",
           title: 'SimBaRepro',
-          description: "Simulation-based, Finite-sample Inference for Privatized Data",
+          description: "Simulation-based, finite-sample inference for privatized data",
           section: "Projects",handler: () => {
               window.location.href = "/projects/1_project/";
             },},{
