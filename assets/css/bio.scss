@@ -96,14 +96,14 @@ a {
 .bio-shell {
   max-width: 1120px;
   margin: 0 auto;
-  padding: clamp(2.5rem, 7vw, 5rem) clamp(1.25rem, 4vw, 3rem) 5rem;
+  padding: clamp(1.67rem, 4.67vw, 3.33rem) clamp(1.25rem, 4vw, 3rem) 5rem;
 }
 
 .bio-intro {
   display: grid;
   justify-items: center;
   gap: clamp(1.75rem, 5vw, 3rem);
-  padding-bottom: clamp(3rem, 8vw, 6rem);
+  padding-bottom: clamp(2rem, 5.33vw, 4rem);
   border-bottom: 1px solid var(--line);
 }
 
@@ -217,7 +217,7 @@ a {
 }
 
 .bio-block h2 {
-  margin: 0 0 4rem;
+  margin: 0 0 2rem;
   color: var(--accent);
   font-size: 0.78rem;
   font-weight: 800;
@@ -488,16 +488,20 @@ a {
   }
 
   .hopfield-panel figcaption {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: 0.6rem;
   }
 
-  .hopfield-panel figcaption span,
-  .hopfield-status {
+  .hopfield-panel figcaption span:first-child {
     justify-self: start;
   }
 
+  .hopfield-status {
+    justify-self: end;
+  }
+
   .hopfield-controls {
-    justify-content: flex-start;
+    justify-content: center;
   }
 
   .bio-block {

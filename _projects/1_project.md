@@ -1,6 +1,7 @@
 ---
 layout: project-detail
 title: SimBaRepro
+permalink: /projects/1_project/
 description: Simulation-based, finite-sample inference for privatized data
 img: assets/img/package_figures/package_illustration.png
 importance: 1

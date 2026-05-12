@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ site.first_name }} {{ site.last_name }}</title>
     <meta name="description" content="{{ site.description | strip_html | strip_newlines | escape }}">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E">
     {% assign asset_version = site.time | date: '%s' %}
+    <link rel="icon" type="image/svg+xml" href="{{ '/assets/img/favicon.svg' | relative_url }}?v={{ asset_version }}">
     <link rel="stylesheet" href="{{ '/assets/css/bio.css' | relative_url }}?v={{ asset_version }}">
     <script defer src="{{ '/assets/js/bio-hopfield.js' | relative_url }}?v={{ asset_version }}"></script>
   </head>
@@ -26,12 +26,12 @@
           <canvas
             id="hopfield-name"
             class="hopfield-canvas"
-            aria-label="An interactive binary Hopfield network recalling the name Xinlong Du"
+            aria-label="An interactive Hopfield network recalling the name Xinlong Du"
           ></canvas>
           <figcaption>
             <span>
               <a href="https://en.wikipedia.org/wiki/Hopfield_network" target="_blank" rel="noopener">
-                binary Hopfield network
+                Hopfield network
               </a>
             </span>
             <span class="hopfield-controls" aria-label="Hopfield controls">
