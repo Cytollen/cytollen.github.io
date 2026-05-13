@@ -47,6 +47,10 @@
   let painting = false;
   let paintValue = 1;
   let lastPaintedIndex = -1;
+  let dragStarted = false;
+  let pointerStartIndex = -1;
+  let pointerStartX = 0;
+  let pointerStartY = 0;
   let canvasBox = { height: 0, ratio: 0, width: 0 };
   let gridBox = null;
 
@@ -57,7 +61,7 @@
   canvas.addEventListener("pointerdown", handlePointerDown);
   canvas.addEventListener("pointermove", handlePointerMove);
   canvas.addEventListener("pointerup", endPainting);
-  canvas.addEventListener("pointercancel", endPainting);
+  canvas.addEventListener("pointercancel", cancelPainting);
   window.addEventListener("resize", draw);
   window.addEventListener("pageshow", draw);
 
@@ -180,6 +184,22 @@
     }
   }
 
+  function toggleNode(index) {
+    setNode(index, state[index] === 1 ? -1 : 1);
+  }
+
+  function startDrag(index) {
+    dragStarted = true;
+
+    if (pointerStartIndex !== -1) {
+      paintPath(pointerStartIndex);
+    }
+
+    if (index !== null) {
+      paintPath(index);
+    }
+  }
+
   function handlePointerDown(event) {
     const index = nodeIndexAt(event);
 
@@ -190,22 +210,31 @@
     painting = true;
     paintValue = 1;
     lastPaintedIndex = -1;
+    dragStarted = false;
+    pointerStartIndex = index;
+    pointerStartX = event.clientX;
+    pointerStartY = event.clientY;
 
     if (canvas.setPointerCapture) {
       canvas.setPointerCapture(event.pointerId);
     }
-
-    paintPath(index);
-    draw();
-    queueRecall();
   }
 
   function handlePointerMove(event) {
     if (!painting) return;
 
     const index = nodeIndexAt(event);
+    const dx = event.clientX - pointerStartX;
+    const dy = event.clientY - pointerStartY;
 
-    if (index === null || index === lastPaintedIndex) return;
+    if (!dragStarted && Math.hypot(dx, dy) >= 4) {
+      event.preventDefault();
+      startDrag(index);
+      draw();
+      queueRecall();
+    }
+
+    if (!dragStarted || index === null || index === lastPaintedIndex) return;
 
     event.preventDefault();
     paintPath(index);
@@ -216,8 +245,30 @@
   function endPainting(event) {
     if (!painting) return;
 
+    if (!dragStarted && pointerStartIndex !== -1) {
+      event.preventDefault();
+      toggleNode(pointerStartIndex);
+      draw();
+      queueRecall();
+    }
+
     painting = false;
     lastPaintedIndex = -1;
+    dragStarted = false;
+    pointerStartIndex = -1;
+
+    if (canvas.hasPointerCapture && canvas.hasPointerCapture(event.pointerId)) {
+      canvas.releasePointerCapture(event.pointerId);
+    }
+  }
+
+  function cancelPainting(event) {
+    if (!painting) return;
+
+    painting = false;
+    lastPaintedIndex = -1;
+    dragStarted = false;
+    pointerStartIndex = -1;
 
     if (canvas.hasPointerCapture && canvas.hasPointerCapture(event.pointerId)) {
       canvas.releasePointerCapture(event.pointerId);
@@ -230,6 +281,8 @@
     pauseRecall();
     painting = false;
     lastPaintedIndex = -1;
+    dragStarted = false;
+    pointerStartIndex = -1;
 
     if (action === "shuffle") {
       shuffleState();
