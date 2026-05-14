@@ -31,6 +31,7 @@
   const nodeCount = cols * rows;
   const target = makePattern(text);
   const state = new Int8Array(nodeCount);
+  const sweepOrder = Array.from({ length: nodeCount }, (_, index) => index);
   const context = canvas.getContext("2d");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -403,8 +404,16 @@
     stableSweeps = 0;
   }
 
-  function updateRandomNode() {
-    const index = Math.floor(Math.random() * nodeCount);
+  function shuffleSweepOrder() {
+    for (let index = nodeCount - 1; index > 0; index -= 1) {
+      const swapIndex = Math.floor(Math.random() * (index + 1));
+      const current = sweepOrder[index];
+      sweepOrder[index] = sweepOrder[swapIndex];
+      sweepOrder[swapIndex] = current;
+    }
+  }
+
+  function updateNode(index) {
     const current = state[index];
     const memory = target[index];
     const overlapWithoutSelf = overlap - memory * current;
@@ -415,6 +424,19 @@
       state[index] = next;
       overlap += memory * (next - current);
       sweepChanges += 1;
+    }
+  }
+
+  function updateRandomNode() {
+    updateNode(Math.floor(Math.random() * nodeCount));
+  }
+
+  function cleanupWithPermutationSweeps(maxSweeps = 1) {
+    for (let sweep = 0; sweep < maxSweeps && overlap !== nodeCount; sweep += 1) {
+      shuffleSweepOrder();
+      for (const index of sweepOrder) {
+        updateNode(index);
+      }
     }
   }
 
@@ -432,9 +454,6 @@
 
       if (updates % nodeCount === 0) {
         stableSweeps = sweepChanges === 0 ? stableSweeps + 1 : 0;
-        if (status) {
-          status.textContent = `${Math.floor(updates / nodeCount)} sweeps`;
-        }
         sweepChanges = 0;
       }
     }
@@ -444,6 +463,8 @@
     if (stableSweeps >= 2 || updates > nodeCount * 28) {
       running = false;
       frameId = 0;
+      cleanupWithPermutationSweeps();
+      draw();
       if (status) status.textContent = "settled";
       return;
     }
@@ -464,6 +485,7 @@
       if (changes === 0) break;
     }
 
+    cleanupWithPermutationSweeps();
     if (status) status.textContent = "settled";
   }
 
