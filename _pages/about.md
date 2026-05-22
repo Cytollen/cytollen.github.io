@@ -1,5 +1,5 @@
 ---
 layout: bio
-title: Xinlong Du
+title: Xinlong Du's Personal Webpage
 permalink: /
 ---
