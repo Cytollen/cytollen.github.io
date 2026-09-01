@@ -8,10 +8,10 @@
   if (!canvas) return;
 
   const glyphs = {
-    " ": ["000", "000", "000", "000", "000", "000", "000"],
+    " ": ["0", "0", "0", "0", "0", "0", "0"],
     D: ["11110", "10001", "10001", "10001", "10001", "10001", "11110"],
     G: ["01110", "10001", "10000", "10111", "10001", "10001", "01110"],
-    I: ["11111", "00100", "00100", "00100", "00100", "00100", "11111"],
+    I: ["111", "010", "010", "010", "010", "010", "111"],
     L: ["10000", "10000", "10000", "10000", "10000", "10000", "11111"],
     N: ["10001", "11001", "10101", "10011", "10001", "10001", "10001"],
     O: ["01110", "10001", "10001", "10001", "10001", "10001", "01110"],
@@ -21,8 +21,8 @@
 
   const text = "XINLONG DU";
   const glyphHeight = 7;
-  const paddingX = 2;
-  const paddingY = 3;
+  const paddingX = 1;
+  const paddingY = 2;
   const gap = 1;
   const bias = 0.18;
   const recallDelay = 3000;
@@ -301,8 +301,8 @@
     const rect = canvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
-    const col = Math.floor((x - gridBox.startX) / gridBox.cell);
-    const row = Math.floor((y - gridBox.startY) / gridBox.cell);
+    const col = Math.floor((x - gridBox.startX) / gridBox.cellX);
+    const row = Math.floor((y - gridBox.startY) / gridBox.cellY);
 
     if (
       x < gridBox.startX ||
@@ -515,21 +515,29 @@
   }
 
   function calculateGrid(width, height) {
-    const outerPaddingX = Math.max(8, Math.floor(width * 0.03));
-    const outerPaddingY = Math.max(16, Math.floor(height * 0.16));
-    const progressGap = 14;
-    const usableWidth = Math.max(1, width - outerPaddingX * 2);
-    const usableHeight = Math.max(1, height - outerPaddingY * 2 - progressGap);
-    const cell = Math.max(1, Math.floor(Math.min(usableWidth / cols, usableHeight / rows)));
-    const gridWidth = cell * cols;
-    const gridHeight = cell * rows;
-    const startX = Math.floor((width - gridWidth) / 2);
-    const startY = Math.floor(outerPaddingY + (usableHeight - gridHeight) / 2);
-    const gutter = Math.max(1, Math.floor(cell * 0.15));
-    const block = Math.max(1, cell - gutter);
-    const progressY = Math.min(height - 2, startY + gridHeight + progressGap - 4);
+    const startX = width * (203 / 2117);
+    const startY = height * (233 / 743);
+    const gridWidth = width * ((2000 - 203) / 2117);
+    const gridHeight = height * ((612 - 233) / 743);
+    const cellX = gridWidth / cols;
+    const cellY = gridHeight / rows;
+    const blockWidth = Math.max(1, cellX * 0.78);
+    const blockHeight = Math.max(1, cellY * 0.78);
+    const insetX = (cellX - blockWidth) / 2;
+    const insetY = (cellY - blockHeight) / 2;
 
-    return { block, cell, gridHeight, gridWidth, gutter, progressY, startX, startY };
+    return {
+      blockHeight,
+      blockWidth,
+      cellX,
+      cellY,
+      gridHeight,
+      gridWidth,
+      insetX,
+      insetY,
+      startX,
+      startY,
+    };
   }
 
   function drawNetworkTraces(line) {
@@ -605,48 +613,24 @@
   function draw() {
     const { width, height } = syncCanvasSize();
     const styles = getComputedStyle(document.documentElement);
-    const paper = styles.getPropertyValue("--paper").trim() || "#fbfaf7";
     const ink = styles.getPropertyValue("--ink").trim() || "#171717";
-    const accent = styles.getPropertyValue("--accent").trim() || "#245f73";
-    const line = styles.getPropertyValue("--line").trim() || "#ded9d0";
 
     gridBox = calculateGrid(width, height);
 
     context.clearRect(0, 0, width, height);
-    context.fillStyle = paper;
-    context.fillRect(0, 0, width, height);
-    drawNetworkTraces(line);
+    context.fillStyle = ink;
 
     for (let row = 0; row < rows; row += 1) {
       for (let col = 0; col < cols; col += 1) {
         const value = state[row * cols + col];
-        const x = gridBox.startX + col * gridBox.cell;
-        const y = gridBox.startY + row * gridBox.cell;
+        const x = gridBox.startX + col * gridBox.cellX + gridBox.insetX;
+        const y = gridBox.startY + row * gridBox.cellY + gridBox.insetY;
 
         if (value === 1) {
-          context.fillStyle = ink;
-          context.fillRect(x, y, gridBox.block, gridBox.block);
-        } else {
-          context.fillStyle = paper;
-          context.fillRect(x, y, gridBox.block, gridBox.block);
-          context.save();
-          context.globalAlpha = 0.62;
-          context.strokeStyle = line;
-          context.lineWidth = 0.7;
-          context.strokeRect(x + 0.35, y + 0.35, Math.max(0, gridBox.block - 0.7), Math.max(0, gridBox.block - 0.7));
-          context.restore();
+          context.fillRect(x, y, gridBox.blockWidth, gridBox.blockHeight);
         }
       }
     }
-
-    drawRegistrationMarks(line);
-
-    const barProgress = recallDueAt > 0 ? tensionProgress : recallProgress();
-
-    context.fillStyle = line;
-    context.fillRect(gridBox.startX, gridBox.progressY, gridBox.gridWidth, 1);
-    context.fillStyle = accent;
-    context.fillRect(gridBox.startX, gridBox.progressY, Math.max(0, gridBox.gridWidth * clamp(barProgress)), 2);
   }
 
   function recallProgress() {
