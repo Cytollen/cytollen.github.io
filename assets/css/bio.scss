@@ -98,14 +98,6 @@ a {
   letter-spacing: 0.14em;
 }
 
-.site-mark-note,
-.site-location {
-  color: var(--muted);
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
 .site-header nav {
   display: flex;
   flex-wrap: wrap;
@@ -150,8 +142,8 @@ a {
 }
 
 .wind-chime-figure {
-  width: min(100%, 165px);
-  margin: -2.2rem 0 0;
+  width: min(100%, 150px);
+  margin: 0;
   justify-self: start;
 }
 
@@ -165,16 +157,6 @@ a {
 
 .hero-main {
   min-width: 0;
-  padding-top: clamp(0.3rem, 2vw, 1.6rem);
-}
-
-.archive-kicker {
-  margin: 0 0 1rem;
-  color: var(--muted);
-  font-family: var(--typewriter);
-  font-size: 0.66rem;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
 }
 
 .screen-reader-only {
@@ -198,13 +180,8 @@ a {
   width: 100%;
   height: auto;
   aspect-ratio: 2117 / 743;
-  background-image: url("{{ '/assets/img/hopfield-nameplate-empty-zine-v1.png' | relative_url }}");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background: transparent;
   cursor: crosshair;
-  filter: contrast(0.96);
-  mix-blend-mode: multiply;
   touch-action: none;
   user-select: none;
 }
@@ -627,10 +604,6 @@ a {
     width: min(calc(100% - 2rem), 1240px);
   }
 
-  .site-location {
-    display: none;
-  }
-
   .hero-layout {
     grid-template-columns: 1fr;
     gap: 1.8rem;
@@ -638,11 +611,7 @@ a {
 
   .wind-chime-figure {
     width: min(30vw, 125px);
-    margin: -1rem 0 -0.8rem;
-  }
-
-  .hero-main {
-    padding-top: 0;
+    margin: 0 0 -0.8rem;
   }
 
   .hopfield-canvas {
@@ -702,14 +671,6 @@ a {
 }
 
 @media (max-width: 480px) {
-  .site-mark-note {
-    display: none;
-  }
-
-  .archive-kicker {
-    letter-spacing: 0.08em;
-  }
-
   .hopfield-panel figcaption {
     grid-template-columns: 1fr;
   }

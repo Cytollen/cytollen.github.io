@@ -515,26 +515,23 @@
   }
 
   function calculateGrid(width, height) {
-    const startX = width * (203 / 2117);
-    const startY = height * (233 / 743);
-    const gridWidth = width * ((2000 - 203) / 2117);
-    const gridHeight = height * ((612 - 233) / 743);
-    const cellX = gridWidth / cols;
-    const cellY = gridHeight / rows;
-    const blockWidth = Math.max(1, cellX * 0.78);
-    const blockHeight = Math.max(1, cellY * 0.78);
-    const insetX = (cellX - blockWidth) / 2;
-    const insetY = (cellY - blockHeight) / 2;
+    const gridWidth = width * 0.84;
+    const cell = gridWidth / cols;
+    const gridHeight = cell * rows;
+    const startX = (width - gridWidth) / 2;
+    const startY = (height - gridHeight) / 2;
+    const blockSize = Math.max(1, cell * 0.76);
+    const inset = (cell - blockSize) / 2;
 
     return {
-      blockHeight,
-      blockWidth,
-      cellX,
-      cellY,
+      blockHeight: blockSize,
+      blockWidth: blockSize,
+      cellX: cell,
+      cellY: cell,
       gridHeight,
       gridWidth,
-      insetX,
-      insetY,
+      insetX: inset,
+      insetY: inset,
       startX,
       startY,
     };
@@ -542,7 +539,6 @@
 
   function drawNetworkTraces(line) {
     const left = gridBox.startX;
-    const right = gridBox.startX + gridBox.gridWidth;
     const top = gridBox.startY;
     const bottom = gridBox.startY + gridBox.gridHeight;
     const width = gridBox.gridWidth;
@@ -565,7 +561,7 @@
 
     for (const [from, to, direction] of traces) {
       const y = direction < 0 ? top : bottom;
-      const bend = Math.max(14, gridBox.cell * (2.4 + (to - from) * 2.8));
+      const bend = Math.max(14, gridBox.cellX * (2.4 + (to - from) * 2.8));
 
       context.beginPath();
       context.moveTo(left + width * from, y);
@@ -584,8 +580,8 @@
   }
 
   function drawRegistrationMarks(line) {
-    const offset = Math.max(8, gridBox.cell * 0.72);
-    const length = Math.max(5, gridBox.cell * 0.48);
+    const offset = Math.max(8, gridBox.cellX * 0.9);
+    const length = Math.max(5, gridBox.cellX * 0.52);
     const points = [
       [gridBox.startX - offset, gridBox.startY - offset],
       [gridBox.startX + gridBox.gridWidth + offset, gridBox.startY - offset],
@@ -614,10 +610,34 @@
     const { width, height } = syncCanvasSize();
     const styles = getComputedStyle(document.documentElement);
     const ink = styles.getPropertyValue("--ink").trim() || "#171717";
+    const line = styles.getPropertyValue("--muted").trim() || "#746e63";
 
     gridBox = calculateGrid(width, height);
 
     context.clearRect(0, 0, width, height);
+    drawNetworkTraces(line);
+
+    context.save();
+    context.strokeStyle = line;
+    context.lineWidth = 0.7;
+    context.globalAlpha = 0.68;
+    context.beginPath();
+
+    for (let col = 0; col <= cols; col += 1) {
+      const x = gridBox.startX + col * gridBox.cellX;
+      context.moveTo(x, gridBox.startY);
+      context.lineTo(x, gridBox.startY + gridBox.gridHeight);
+    }
+
+    for (let row = 0; row <= rows; row += 1) {
+      const y = gridBox.startY + row * gridBox.cellY;
+      context.moveTo(gridBox.startX, y);
+      context.lineTo(gridBox.startX + gridBox.gridWidth, y);
+    }
+
+    context.stroke();
+    context.restore();
+
     context.fillStyle = ink;
 
     for (let row = 0; row < rows; row += 1) {
@@ -631,6 +651,8 @@
         }
       }
     }
+
+    drawRegistrationMarks(line);
   }
 
   function recallProgress() {
