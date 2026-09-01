@@ -569,18 +569,19 @@ a {
   }
 
   .hero-layout {
-    grid-template-columns: 1fr;
-    gap: 1.8rem;
+    grid-template-columns: minmax(0, 0.2fr) minmax(0, 1fr);
+    gap: clamp(0.7rem, 4vw, 1.5rem);
   }
 
   .wind-chime-figure {
-    width: min(35.1vw, 146.25px);
-    margin: 0 0 -0.8rem;
+    width: 89.25%;
+    margin: 0;
+    transform: translateY(-2.44vw);
   }
 
   .hopfield-panel {
-    width: 100%;
-    margin: 0;
+    width: 104.4%;
+    margin: -7.9% 0 0 -11.7%;
   }
 
   .hopfield-canvas {
