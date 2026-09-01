@@ -180,12 +180,11 @@ a {
   width: 100%;
   height: auto;
   aspect-ratio: 2120 / 742;
-  background-image: url("{{ '/assets/img/hopfield-nameplate-art-user-v1.png' | relative_url }}");
+  background-image: url("{{ '/assets/img/hopfield-nameplate-art-transparent-v2.png' | relative_url }}");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
   cursor: crosshair;
-  mix-blend-mode: multiply;
   touch-action: none;
   user-select: none;
 }
