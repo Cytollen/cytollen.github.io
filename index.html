@@ -6,15 +6,17 @@
     <title>Xinlong Du's Personal Webpage</title>
     <meta name="description" content="Website of Xinlong Du.">
     
-    <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg?v=1779466168">
-    <link rel="stylesheet" href="/assets/css/bio.css?v=1779466168">
-    <script defer src="/assets/js/bio-hopfield.js?v=1779466168"></script>
+    <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg?v=1788294701">
+    <link rel="stylesheet" href="/assets/css/bio.css?v=1788294701">
+    <script defer src="/assets/js/bio-hopfield.js?v=1788294701"></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header">
-      <a class="site-mark" href="/">XD</a>
+      <a class="site-mark" href="/" aria-label="Xinlong Du, home">
+        <span class="site-mark-initials">XD</span>
+      </a>
       <nav aria-label="Site navigation">
         <a href="mailto:du339@purdue.edu">Email</a>
       </nav>
@@ -22,55 +24,47 @@
 
     <main id="main" class="bio-shell">
       <section class="bio-intro" aria-labelledby="bio-title">
-        <figure class="hopfield-panel">
-          <canvas
-            id="hopfield-name"
-            class="hopfield-canvas"
-            aria-label="An interactive Hopfield network recalling the name Xinlong Du"
-          ></canvas>
-          <figcaption>
-            <span>
-              <a href="https://en.wikipedia.org/wiki/Hopfield_network" target="_blank" rel="noopener">
-                Hopfield network
-              </a>
-            </span>
-            <span class="hopfield-controls" aria-label="Hopfield controls">
-              <button type="button" data-hopfield-action="shuffle">Shuffle</button>
-              <button type="button" data-hopfield-action="clear">Clear</button>
-            </span>
-            <span id="hopfield-status" class="hopfield-status">initializing</span>
-          </figcaption>
-        </figure>
+        <div class="hero-layout">
+          <figure class="wind-chime-figure">
+            <img
+              src="/assets/img/wind-chime-zine-cutout-v2.png"
+              alt="A graphite and orange wind chime drawing on aged paper"
+              width="971"
+              height="1619"
+            >
+          </figure>
 
-        <div class="bio-copy">
-          <h1 id="bio-title" class="screen-reader-only">Xinlong Du</h1>
-          <p class="lede">
-            I am a PhD student in Industrial Engineering at Purdue University, advised by Prof. Harsha Honnappa. I work on uncertainty, stochastic systems, and decision-making.
-          </p>
-          <p class="bio-sublede">
-            Before that, I studied statistics at Purdue and physics at Reed College.
-          </p>
-        </div>
-      </section>
+          <div class="hero-main">
+            <figure class="hopfield-panel">
+              <canvas
+                id="hopfield-name"
+                class="hopfield-canvas"
+                aria-label="An interactive Hopfield network recalling the name Xinlong Du"
+              ></canvas>
+              <figcaption>
+                <span>
+                  <a href="https://en.wikipedia.org/wiki/Hopfield_network" target="_blank" rel="noopener">
+                    Hopfield network
+                  </a>
+                </span>
+                <span class="hopfield-controls" aria-label="Hopfield controls">
+                  <button type="button" data-hopfield-action="shuffle">Shuffle</button>
+                  <button type="button" data-hopfield-action="clear">Clear</button>
+                </span>
+                <span id="hopfield-status" class="hopfield-status">initializing</span>
+              </figcaption>
+            </figure>
 
-      <section class="bio-grid" aria-label="Bio details">
-        <div class="bio-block">
-          <h2>Now</h2>
-          <p>
-            Thinking about stochastic models for point processes and how to make meaningful inferences on their latent structures.
-          </p>
-        </div>
-        <div class="bio-block">
-          <h2>Before</h2>
-          <p>
-            BA in Physics from Reed College and MS in Statistics from Purdue University.
-          </p>
-        </div>
-        <div class="bio-block">
-          <h2>Outside</h2>
-          <p>
-            Classical music, tennis, biking, and other things that keep the mind from turning into a spreadsheet.
-          </p>
+            <div class="bio-copy">
+              <h1 id="bio-title" class="screen-reader-only">Xinlong Du</h1>
+              <p class="lede">
+                I am a PhD student in Industrial Engineering at Purdue University, advised by Prof. Harsha Honnappa. I work on uncertainty, stochastic systems, and decision-making.
+              </p>
+              <p class="bio-sublede">
+                Before that, I studied statistics at Purdue and physics at Reed College.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 

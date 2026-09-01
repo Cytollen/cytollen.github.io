@@ -8,10 +8,10 @@
   if (!canvas) return;
 
   const glyphs = {
-    " ": ["0", "0", "0", "0", "0", "0", "0"],
+    " ": ["000", "000", "000", "000", "000", "000", "000"],
     D: ["11110", "10001", "10001", "10001", "10001", "10001", "11110"],
     G: ["01110", "10001", "10000", "10111", "10001", "10001", "01110"],
-    I: ["111", "010", "010", "010", "010", "010", "111"],
+    I: ["11111", "00100", "00100", "00100", "00100", "00100", "11111"],
     L: ["10000", "10000", "10000", "10000", "10000", "10000", "11111"],
     N: ["10001", "11001", "10101", "10011", "10001", "10001", "10001"],
     O: ["01110", "10001", "10001", "10001", "10001", "10001", "01110"],
@@ -21,25 +21,13 @@
 
   const text = "XINLONG DU";
   const glyphHeight = 7;
-  const paddingX = 0;
-  const paddingTop = 2;
-  const paddingBottom = 1;
+  const paddingX = 2;
+  const paddingY = 3;
   const gap = 1;
   const bias = 0.18;
   const recallDelay = 3000;
-  const artworkWidth = 2120;
-  const artworkHeight = 742;
-  const artworkColumnLines = [
-    217.5, 250, 283.5, 317, 351.5, 386, 420, 453.5, 487, 521, 555, 588,
-    621.5, 655.5, 688.5, 722, 755, 789, 822.5, 855, 887.5, 921.5, 955,
-    988, 1021, 1054.5, 1087, 1120, 1153.5, 1187.5, 1221, 1254, 1287,
-    1320.5, 1354, 1386.5, 1420, 1454, 1487.5, 1521, 1554.5, 1588,
-    1620.5, 1654, 1687, 1720.5, 1754, 1788, 1821, 1854.5, 1887.5,
-    1920, 1953.5, 1987.5,
-  ];
-  const artworkRowLines = [244.5, 277, 311, 345, 380, 415, 451, 486, 520, 554, 587.5];
   const cols = textWidth(text) + paddingX * 2;
-  const rows = glyphHeight + paddingTop + paddingBottom;
+  const rows = glyphHeight + paddingY * 2;
   const nodeCount = cols * rows;
   const target = makePattern(text);
   const state = new Int8Array(nodeCount);
@@ -104,7 +92,7 @@
       glyph.forEach((line, row) => {
         for (let col = 0; col < line.length; col += 1) {
           if (line[col] === "1") {
-            pattern[(row + paddingTop) * cols + cursor + col] = 1;
+            pattern[(row + paddingY) * cols + cursor + col] = 1;
           }
         }
       });
@@ -313,31 +301,23 @@
     const rect = canvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
-    const col = cellIndexAt(x, gridBox.columnLines);
-    const row = cellIndexAt(y, gridBox.rowLines);
+    const col = Math.floor((x - gridBox.startX) / gridBox.cell);
+    const row = Math.floor((y - gridBox.startY) / gridBox.cell);
 
-    if (col === -1 || row === -1) return null;
-
-    return row * cols + col;
-  }
-
-  function cellIndexAt(value, lines) {
-    if (value < lines[0] || value > lines[lines.length - 1]) return -1;
-
-    let low = 0;
-    let high = lines.length - 1;
-
-    while (high - low > 1) {
-      const middle = Math.floor((low + high) / 2);
-
-      if (value < lines[middle]) {
-        high = middle;
-      } else {
-        low = middle;
-      }
+    if (
+      x < gridBox.startX ||
+      y < gridBox.startY ||
+      x > gridBox.startX + gridBox.gridWidth ||
+      y > gridBox.startY + gridBox.gridHeight ||
+      col < 0 ||
+      col >= cols ||
+      row < 0 ||
+      row >= rows
+    ) {
+      return null;
     }
 
-    return low;
+    return row * cols + col;
   }
 
   function pauseRecall() {
@@ -535,40 +515,54 @@
   }
 
   function calculateGrid(width, height) {
-    return {
-      columnLines: artworkColumnLines.map((line) => width * (line / artworkWidth)),
-      rowLines: artworkRowLines.map((line) => height * (line / artworkHeight)),
-    };
+    const outerPaddingX = Math.max(8, Math.floor(width * 0.03));
+    const outerPaddingY = Math.max(8, Math.floor(height * 0.08));
+    const progressGap = 14;
+    const usableWidth = Math.max(1, width - outerPaddingX * 2);
+    const usableHeight = Math.max(1, height - outerPaddingY * 2 - progressGap);
+    const cell = Math.max(1, Math.floor(Math.min(usableWidth / cols, usableHeight / rows)));
+    const gridWidth = cell * cols;
+    const gridHeight = cell * rows;
+    const startX = Math.floor((width - gridWidth) / 2);
+    const startY = Math.floor(outerPaddingY + (usableHeight - gridHeight) / 2);
+    const gutter = Math.max(1, Math.floor(cell * 0.15));
+    const block = Math.max(1, cell - gutter);
+    const progressY = Math.min(height - 2, startY + gridHeight + progressGap - 4);
+
+    return { block, cell, gridHeight, gridWidth, gutter, progressY, startX, startY };
   }
 
   function draw() {
     const { width, height } = syncCanvasSize();
     const styles = getComputedStyle(document.documentElement);
+    const paper = styles.getPropertyValue("--paper").trim() || "#fbfaf7";
     const ink = styles.getPropertyValue("--ink").trim() || "#171717";
+    const accent = styles.getPropertyValue("--accent").trim() || "#245f73";
+    const line = styles.getPropertyValue("--line").trim() || "#ded9d0";
 
     gridBox = calculateGrid(width, height);
 
     context.clearRect(0, 0, width, height);
-    context.fillStyle = ink;
+    context.fillStyle = paper;
+    context.fillRect(0, 0, width, height);
 
     for (let row = 0; row < rows; row += 1) {
       for (let col = 0; col < cols; col += 1) {
         const value = state[row * cols + col];
-        const cellLeft = gridBox.columnLines[col];
-        const cellRight = gridBox.columnLines[col + 1];
-        const cellTop = gridBox.rowLines[row];
-        const cellBottom = gridBox.rowLines[row + 1];
-        const blockWidth = Math.max(1, (cellRight - cellLeft) * 0.76);
-        const blockHeight = Math.max(1, (cellBottom - cellTop) * 0.76);
-        const x = cellLeft + (cellRight - cellLeft - blockWidth) / 2;
-        const y = cellTop + (cellBottom - cellTop - blockHeight) / 2;
+        const x = gridBox.startX + col * gridBox.cell;
+        const y = gridBox.startY + row * gridBox.cell;
 
-        if (value === 1) {
-          context.fillRect(x, y, blockWidth, blockHeight);
-        }
+        context.fillStyle = value === 1 ? ink : line;
+        context.fillRect(x, y, gridBox.block, gridBox.block);
       }
     }
 
+    const barProgress = recallDueAt > 0 ? tensionProgress : recallProgress();
+
+    context.fillStyle = line;
+    context.fillRect(gridBox.startX, gridBox.progressY, gridBox.gridWidth, 1);
+    context.fillStyle = accent;
+    context.fillRect(gridBox.startX, gridBox.progressY, Math.max(0, gridBox.gridWidth * clamp(barProgress)), 2);
   }
 
   function recallProgress() {
