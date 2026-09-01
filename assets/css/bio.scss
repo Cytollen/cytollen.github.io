@@ -584,6 +584,10 @@ a {
     margin: -7.9% 0 0 -11.7%;
   }
 
+  .bio-copy {
+    transform: translateX(calc(-10% - clamp(0.35rem, 2vw, 0.75rem)));
+  }
+
   .hopfield-canvas {
     height: auto;
   }
