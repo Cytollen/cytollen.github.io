@@ -27,6 +27,17 @@
   const gap = 1;
   const bias = 0.18;
   const recallDelay = 3000;
+  const artworkWidth = 2120;
+  const artworkHeight = 742;
+  const artworkColumnLines = [
+    217.5, 250, 283.5, 317, 351.5, 386, 420, 453.5, 487, 521, 555, 588,
+    621.5, 655.5, 688.5, 722, 755, 789, 822.5, 855, 887.5, 921.5, 955,
+    988, 1021, 1054.5, 1087, 1120, 1153.5, 1187.5, 1221, 1254, 1287,
+    1320.5, 1354, 1386.5, 1420, 1454, 1487.5, 1521, 1554.5, 1588,
+    1620.5, 1654, 1687, 1720.5, 1754, 1788, 1821, 1854.5, 1887.5,
+    1920, 1953.5, 1987.5,
+  ];
+  const artworkRowLines = [244.5, 277, 311, 345, 380, 415, 451, 486, 520, 554, 587.5];
   const cols = textWidth(text) + paddingX * 2;
   const rows = glyphHeight + paddingTop + paddingBottom;
   const nodeCount = cols * rows;
@@ -302,23 +313,31 @@
     const rect = canvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
-    const col = Math.floor((x - gridBox.startX) / gridBox.cellX);
-    const row = Math.floor((y - gridBox.startY) / gridBox.cellY);
+    const col = cellIndexAt(x, gridBox.columnLines);
+    const row = cellIndexAt(y, gridBox.rowLines);
 
-    if (
-      x < gridBox.startX ||
-      y < gridBox.startY ||
-      x > gridBox.startX + gridBox.gridWidth ||
-      y > gridBox.startY + gridBox.gridHeight ||
-      col < 0 ||
-      col >= cols ||
-      row < 0 ||
-      row >= rows
-    ) {
-      return null;
-    }
+    if (col === -1 || row === -1) return null;
 
     return row * cols + col;
+  }
+
+  function cellIndexAt(value, lines) {
+    if (value < lines[0] || value > lines[lines.length - 1]) return -1;
+
+    let low = 0;
+    let high = lines.length - 1;
+
+    while (high - low > 1) {
+      const middle = Math.floor((low + high) / 2);
+
+      if (value < lines[middle]) {
+        high = middle;
+      } else {
+        low = middle;
+      }
+    }
+
+    return low;
   }
 
   function pauseRecall() {
@@ -516,28 +535,9 @@
   }
 
   function calculateGrid(width, height) {
-    const startX = width * (216.5 / 2120);
-    const startY = height * (244.5 / 742);
-    const gridWidth = width * ((1987.5 - 216.5) / 2120);
-    const gridHeight = height * ((587.5 - 244.5) / 742);
-    const cellX = gridWidth / cols;
-    const cellY = gridHeight / rows;
-    const blockWidth = Math.max(1, cellX * 0.76);
-    const blockHeight = Math.max(1, cellY * 0.76);
-    const insetX = (cellX - blockWidth) / 2;
-    const insetY = (cellY - blockHeight) / 2;
-
     return {
-      blockHeight,
-      blockWidth,
-      cellX,
-      cellY,
-      gridHeight,
-      gridWidth,
-      insetX,
-      insetY,
-      startX,
-      startY,
+      columnLines: artworkColumnLines.map((line) => width * (line / artworkWidth)),
+      rowLines: artworkRowLines.map((line) => height * (line / artworkHeight)),
     };
   }
 
@@ -554,11 +554,17 @@
     for (let row = 0; row < rows; row += 1) {
       for (let col = 0; col < cols; col += 1) {
         const value = state[row * cols + col];
-        const x = gridBox.startX + col * gridBox.cellX + gridBox.insetX;
-        const y = gridBox.startY + row * gridBox.cellY + gridBox.insetY;
+        const cellLeft = gridBox.columnLines[col];
+        const cellRight = gridBox.columnLines[col + 1];
+        const cellTop = gridBox.rowLines[row];
+        const cellBottom = gridBox.rowLines[row + 1];
+        const blockWidth = Math.max(1, (cellRight - cellLeft) * 0.76);
+        const blockHeight = Math.max(1, (cellBottom - cellTop) * 0.76);
+        const x = cellLeft + (cellRight - cellLeft - blockWidth) / 2;
+        const y = cellTop + (cellBottom - cellTop - blockHeight) / 2;
 
         if (value === 1) {
-          context.fillRect(x, y, gridBox.blockWidth, gridBox.blockHeight);
+          context.fillRect(x, y, blockWidth, blockHeight);
         }
       }
     }
