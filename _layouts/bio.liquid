@@ -14,42 +14,61 @@
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header">
-      <a class="site-mark" href="{{ '/' | relative_url }}">XD</a>
+      <a class="site-mark" href="{{ '/' | relative_url }}" aria-label="Xinlong Du, home">
+        <span class="site-mark-initials">XD</span>
+        <span class="site-mark-note">personal archive / 01</span>
+      </a>
       <nav aria-label="Site navigation">
+        <span class="site-location" aria-hidden="true">Indiana / 2026</span>
         <a href="mailto:{{ site.data.socials.email }}">Email</a>
       </nav>
     </header>
 
     <main id="main" class="bio-shell">
       <section class="bio-intro" aria-labelledby="bio-title">
-        <figure class="hopfield-panel">
-          <canvas
-            id="hopfield-name"
-            class="hopfield-canvas"
-            aria-label="An interactive Hopfield network recalling the name Xinlong Du"
-          ></canvas>
-          <figcaption>
-            <span>
-              <a href="https://en.wikipedia.org/wiki/Hopfield_network" target="_blank" rel="noopener">
-                Hopfield network
-              </a>
-            </span>
-            <span class="hopfield-controls" aria-label="Hopfield controls">
-              <button type="button" data-hopfield-action="shuffle">Shuffle</button>
-              <button type="button" data-hopfield-action="clear">Clear</button>
-            </span>
-            <span id="hopfield-status" class="hopfield-status">initializing</span>
-          </figcaption>
-        </figure>
+        <div class="hero-layout">
+          <figure class="wind-chime-figure">
+            <img
+              src="{{ '/assets/img/wind-chime-zine-v1.png' | relative_url }}"
+              alt="A graphite and orange wind chime drawing on aged paper"
+              width="972"
+              height="1619"
+            >
+            <figcaption>Fig. 01 / air, held lightly.</figcaption>
+          </figure>
 
-        <div class="bio-copy">
-          <h1 id="bio-title" class="screen-reader-only">Xinlong Du</h1>
-          <p class="lede">
-            I am a PhD student in Industrial Engineering at Purdue University, advised by Prof. Harsha Honnappa. I work on uncertainty, stochastic systems, and decision-making.
-          </p>
-          <p class="bio-sublede">
-            Before that, I studied statistics at Purdue and physics at Reed College.
-          </p>
+          <div class="hero-main">
+            <p class="archive-kicker">Associative memory / personal index</p>
+            <figure class="hopfield-panel">
+              <canvas
+                id="hopfield-name"
+                class="hopfield-canvas"
+                aria-label="An interactive Hopfield network recalling the name Xinlong Du"
+              ></canvas>
+              <figcaption>
+                <span>
+                  <a href="https://en.wikipedia.org/wiki/Hopfield_network" target="_blank" rel="noopener">
+                    Hopfield network / 1982 / attractor
+                  </a>
+                </span>
+                <span class="hopfield-controls" aria-label="Hopfield controls">
+                  <button type="button" data-hopfield-action="shuffle">Shuffle</button>
+                  <button type="button" data-hopfield-action="clear">Clear</button>
+                </span>
+                <span id="hopfield-status" class="hopfield-status">initializing</span>
+              </figcaption>
+            </figure>
+
+            <div class="bio-copy">
+              <h1 id="bio-title" class="screen-reader-only">Xinlong Du</h1>
+              <p class="lede">
+                I am a PhD student in Industrial Engineering at Purdue University, advised by Prof. Harsha Honnappa. I work on uncertainty, stochastic systems, and decision-making.
+              </p>
+              <p class="bio-sublede">
+                Before that, I studied statistics at Purdue and physics at Reed College.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 

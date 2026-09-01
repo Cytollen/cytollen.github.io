@@ -516,7 +516,7 @@
 
   function calculateGrid(width, height) {
     const outerPaddingX = Math.max(8, Math.floor(width * 0.03));
-    const outerPaddingY = Math.max(8, Math.floor(height * 0.08));
+    const outerPaddingY = Math.max(16, Math.floor(height * 0.16));
     const progressGap = 14;
     const usableWidth = Math.max(1, width - outerPaddingX * 2);
     const usableHeight = Math.max(1, height - outerPaddingY * 2 - progressGap);
@@ -532,6 +532,76 @@
     return { block, cell, gridHeight, gridWidth, gutter, progressY, startX, startY };
   }
 
+  function drawNetworkTraces(line) {
+    const left = gridBox.startX;
+    const right = gridBox.startX + gridBox.gridWidth;
+    const top = gridBox.startY;
+    const bottom = gridBox.startY + gridBox.gridHeight;
+    const width = gridBox.gridWidth;
+    const traces = [
+      [0.03, 0.34, -1],
+      [0.12, 0.58, -1],
+      [0.24, 0.73, -1],
+      [0.38, 0.91, -1],
+      [0.64, 0.97, -1],
+      [0.05, 0.46, 1],
+      [0.18, 0.67, 1],
+      [0.31, 0.84, 1],
+      [0.53, 0.96, 1],
+    ];
+
+    context.save();
+    context.strokeStyle = line;
+    context.lineWidth = 0.65;
+    context.globalAlpha = 0.52;
+
+    for (const [from, to, direction] of traces) {
+      const y = direction < 0 ? top : bottom;
+      const bend = Math.max(14, gridBox.cell * (2.4 + (to - from) * 2.8));
+
+      context.beginPath();
+      context.moveTo(left + width * from, y);
+      context.bezierCurveTo(
+        left + width * (from + 0.08),
+        y + bend * direction,
+        left + width * (to - 0.08),
+        y + bend * direction,
+        left + width * to,
+        y,
+      );
+      context.stroke();
+    }
+
+    context.restore();
+  }
+
+  function drawRegistrationMarks(line) {
+    const offset = Math.max(8, gridBox.cell * 0.72);
+    const length = Math.max(5, gridBox.cell * 0.48);
+    const points = [
+      [gridBox.startX - offset, gridBox.startY - offset],
+      [gridBox.startX + gridBox.gridWidth + offset, gridBox.startY - offset],
+      [gridBox.startX - offset, gridBox.startY + gridBox.gridHeight + offset],
+      [gridBox.startX + gridBox.gridWidth + offset, gridBox.startY + gridBox.gridHeight + offset],
+    ];
+
+    context.save();
+    context.strokeStyle = line;
+    context.lineWidth = 0.8;
+    context.globalAlpha = 0.75;
+
+    for (const [x, y] of points) {
+      context.beginPath();
+      context.moveTo(x - length, y);
+      context.lineTo(x + length, y);
+      context.moveTo(x, y - length);
+      context.lineTo(x, y + length);
+      context.stroke();
+    }
+
+    context.restore();
+  }
+
   function draw() {
     const { width, height } = syncCanvasSize();
     const styles = getComputedStyle(document.documentElement);
@@ -545,6 +615,7 @@
     context.clearRect(0, 0, width, height);
     context.fillStyle = paper;
     context.fillRect(0, 0, width, height);
+    drawNetworkTraces(line);
 
     for (let row = 0; row < rows; row += 1) {
       for (let col = 0; col < cols; col += 1) {
@@ -552,10 +623,23 @@
         const x = gridBox.startX + col * gridBox.cell;
         const y = gridBox.startY + row * gridBox.cell;
 
-        context.fillStyle = value === 1 ? ink : line;
-        context.fillRect(x, y, gridBox.block, gridBox.block);
+        if (value === 1) {
+          context.fillStyle = ink;
+          context.fillRect(x, y, gridBox.block, gridBox.block);
+        } else {
+          context.fillStyle = paper;
+          context.fillRect(x, y, gridBox.block, gridBox.block);
+          context.save();
+          context.globalAlpha = 0.62;
+          context.strokeStyle = line;
+          context.lineWidth = 0.7;
+          context.strokeRect(x + 0.35, y + 0.35, Math.max(0, gridBox.block - 0.7), Math.max(0, gridBox.block - 0.7));
+          context.restore();
+        }
       }
     }
+
+    drawRegistrationMarks(line);
 
     const barProgress = recallDueAt > 0 ? tensionProgress : recallProgress();
 
