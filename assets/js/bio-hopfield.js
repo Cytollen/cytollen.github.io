@@ -21,13 +21,14 @@
 
   const text = "XINLONG DU";
   const glyphHeight = 7;
-  const paddingX = 1;
-  const paddingY = 2;
+  const paddingX = 0;
+  const paddingTop = 2;
+  const paddingBottom = 1;
   const gap = 1;
   const bias = 0.18;
   const recallDelay = 3000;
   const cols = textWidth(text) + paddingX * 2;
-  const rows = glyphHeight + paddingY * 2;
+  const rows = glyphHeight + paddingTop + paddingBottom;
   const nodeCount = cols * rows;
   const target = makePattern(text);
   const state = new Int8Array(nodeCount);
@@ -92,7 +93,7 @@
       glyph.forEach((line, row) => {
         for (let col = 0; col < line.length; col += 1) {
           if (line[col] === "1") {
-            pattern[(row + paddingY) * cols + cursor + col] = 1;
+            pattern[(row + paddingTop) * cols + cursor + col] = 1;
           }
         }
       });
@@ -515,129 +516,39 @@
   }
 
   function calculateGrid(width, height) {
-    const gridWidth = width * 0.84;
-    const cell = gridWidth / cols;
-    const gridHeight = cell * rows;
-    const startX = (width - gridWidth) / 2;
-    const startY = (height - gridHeight) / 2;
-    const blockSize = Math.max(1, cell * 0.76);
-    const inset = (cell - blockSize) / 2;
+    const startX = width * (216.5 / 2120);
+    const startY = height * (244.5 / 742);
+    const gridWidth = width * ((1987.5 - 216.5) / 2120);
+    const gridHeight = height * ((587.5 - 244.5) / 742);
+    const cellX = gridWidth / cols;
+    const cellY = gridHeight / rows;
+    const blockWidth = Math.max(1, cellX * 0.76);
+    const blockHeight = Math.max(1, cellY * 0.76);
+    const insetX = (cellX - blockWidth) / 2;
+    const insetY = (cellY - blockHeight) / 2;
 
     return {
-      blockHeight: blockSize,
-      blockWidth: blockSize,
-      cellX: cell,
-      cellY: cell,
+      blockHeight,
+      blockWidth,
+      cellX,
+      cellY,
       gridHeight,
       gridWidth,
-      insetX: inset,
-      insetY: inset,
+      insetX,
+      insetY,
       startX,
       startY,
     };
-  }
-
-  function drawNetworkTraces(line) {
-    const left = gridBox.startX;
-    const top = gridBox.startY;
-    const bottom = gridBox.startY + gridBox.gridHeight;
-    const width = gridBox.gridWidth;
-    const traces = [
-      [0.03, 0.34, -1],
-      [0.12, 0.58, -1],
-      [0.24, 0.73, -1],
-      [0.38, 0.91, -1],
-      [0.64, 0.97, -1],
-      [0.05, 0.46, 1],
-      [0.18, 0.67, 1],
-      [0.31, 0.84, 1],
-      [0.53, 0.96, 1],
-    ];
-
-    context.save();
-    context.strokeStyle = line;
-    context.lineWidth = 0.65;
-    context.globalAlpha = 0.52;
-
-    for (const [from, to, direction] of traces) {
-      const y = direction < 0 ? top : bottom;
-      const bend = Math.max(14, gridBox.cellX * (2.4 + (to - from) * 2.8));
-
-      context.beginPath();
-      context.moveTo(left + width * from, y);
-      context.bezierCurveTo(
-        left + width * (from + 0.08),
-        y + bend * direction,
-        left + width * (to - 0.08),
-        y + bend * direction,
-        left + width * to,
-        y,
-      );
-      context.stroke();
-    }
-
-    context.restore();
-  }
-
-  function drawRegistrationMarks(line) {
-    const offset = Math.max(8, gridBox.cellX * 0.9);
-    const length = Math.max(5, gridBox.cellX * 0.52);
-    const points = [
-      [gridBox.startX - offset, gridBox.startY - offset],
-      [gridBox.startX + gridBox.gridWidth + offset, gridBox.startY - offset],
-      [gridBox.startX - offset, gridBox.startY + gridBox.gridHeight + offset],
-      [gridBox.startX + gridBox.gridWidth + offset, gridBox.startY + gridBox.gridHeight + offset],
-    ];
-
-    context.save();
-    context.strokeStyle = line;
-    context.lineWidth = 0.8;
-    context.globalAlpha = 0.75;
-
-    for (const [x, y] of points) {
-      context.beginPath();
-      context.moveTo(x - length, y);
-      context.lineTo(x + length, y);
-      context.moveTo(x, y - length);
-      context.lineTo(x, y + length);
-      context.stroke();
-    }
-
-    context.restore();
   }
 
   function draw() {
     const { width, height } = syncCanvasSize();
     const styles = getComputedStyle(document.documentElement);
     const ink = styles.getPropertyValue("--ink").trim() || "#171717";
-    const line = styles.getPropertyValue("--muted").trim() || "#746e63";
 
     gridBox = calculateGrid(width, height);
 
     context.clearRect(0, 0, width, height);
-    drawNetworkTraces(line);
-
-    context.save();
-    context.strokeStyle = line;
-    context.lineWidth = 0.7;
-    context.globalAlpha = 0.68;
-    context.beginPath();
-
-    for (let col = 0; col <= cols; col += 1) {
-      const x = gridBox.startX + col * gridBox.cellX;
-      context.moveTo(x, gridBox.startY);
-      context.lineTo(x, gridBox.startY + gridBox.gridHeight);
-    }
-
-    for (let row = 0; row <= rows; row += 1) {
-      const y = gridBox.startY + row * gridBox.cellY;
-      context.moveTo(gridBox.startX, y);
-      context.lineTo(gridBox.startX + gridBox.gridWidth, y);
-    }
-
-    context.stroke();
-    context.restore();
-
     context.fillStyle = ink;
 
     for (let row = 0; row < rows; row += 1) {
@@ -652,7 +563,6 @@
       }
     }
 
-    drawRegistrationMarks(line);
   }
 
   function recallProgress() {

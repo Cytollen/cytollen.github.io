@@ -179,9 +179,13 @@ a {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 2117 / 743;
-  background: transparent;
+  aspect-ratio: 2120 / 742;
+  background-image: url("{{ '/assets/img/hopfield-nameplate-art-user-v1.png' | relative_url }}");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
   cursor: crosshair;
+  mix-blend-mode: multiply;
   touch-action: none;
   user-select: none;
 }
@@ -272,48 +276,6 @@ a {
   margin: 1rem 0 0;
   color: var(--muted);
   font-size: clamp(0.93rem, 1.3vw, 1.05rem);
-}
-
-.bio-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  border-bottom: 1px solid var(--line);
-}
-
-.bio-block {
-  min-height: 16rem;
-  border-right: 1px solid var(--line);
-  padding: clamp(1.5rem, 3vw, 2.6rem);
-}
-
-.bio-block:last-child {
-  border-right: 0;
-}
-
-.bio-block h2 {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  margin: 0 0 2.6rem;
-  color: var(--muted);
-  font-family: var(--typewriter);
-  font-size: 0.66rem;
-  font-weight: 400;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-}
-
-.bio-block h2::before {
-  width: 0.42rem;
-  height: 0.42rem;
-  background: var(--accent);
-  content: "";
-}
-
-.bio-block p {
-  margin: 0;
-  color: var(--ink);
-  font-size: clamp(1rem, 1.5vw, 1.12rem);
 }
 
 .news-section,
@@ -632,7 +594,6 @@ a {
     justify-self: end;
   }
 
-  .bio-grid,
   .project-section,
   .project-item,
   .news-section,
@@ -641,20 +602,6 @@ a {
   .project-detail-content,
   .detail-figure-grid {
     grid-template-columns: 1fr;
-  }
-
-  .bio-block {
-    min-height: 0;
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .bio-block:last-child {
-    border-bottom: 0;
-  }
-
-  .bio-block h2 {
-    margin-bottom: 1.7rem;
   }
 
   .project-detail-header > p:not(.section-label),
