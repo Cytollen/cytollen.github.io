@@ -66,6 +66,7 @@
   let pointerStartY = 0;
   let canvasBox = { height: 0, ratio: 0, width: 0 };
   let gridBox = null;
+  let interactionTracked = false;
 
   initializeState();
   draw();
@@ -243,6 +244,7 @@
     if (!dragStarted && Math.hypot(dx, dy) >= 4) {
       event.preventDefault();
       startDrag(index);
+      trackNameplateInteraction("draw");
       draw();
       queueRecall();
     }
@@ -261,6 +263,7 @@
     if (!dragStarted && pointerStartIndex !== -1) {
       event.preventDefault();
       toggleNode(pointerStartIndex);
+      trackNameplateInteraction("tap");
       draw();
       queueRecall();
     }
@@ -303,8 +306,22 @@
       setAll(-1);
     }
 
+    trackNameplateInteraction(action);
     draw();
     queueRecall();
+  }
+
+  function trackNameplateInteraction(action) {
+    if (
+      interactionTracked ||
+      !window.umami ||
+      typeof window.umami.track !== "function"
+    ) {
+      return;
+    }
+
+    window.umami.track("nameplate-interaction", { action });
+    interactionTracked = true;
   }
 
   function nodeIndexAt(event) {
