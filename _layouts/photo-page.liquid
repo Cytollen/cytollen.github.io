@@ -9,7 +9,7 @@
     <link rel="icon" type="image/svg+xml" href="{{ '/assets/img/favicon.svg' | relative_url }}?v={{ asset_version }}">
     <link rel="stylesheet" href="{{ '/assets/css/bio.css' | relative_url }}?v={{ asset_version }}">
   </head>
-  <body>
+  <body class="photo-body">
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header">
@@ -21,25 +21,12 @@
       </nav>
     </header>
 
-    <main id="main" class="bio-shell project-detail-shell">
-      <header class="project-detail-header">
-        <p class="section-label">{{ page.project_year }} / {{ page.project_kind }}</p>
-        <h1>{{ page.title }}</h1>
-        <p>{{ page.description }}</p>
-        <div class="project-actions" aria-label="{{ page.title }} links">
-          {% if page.cran_url %}
-            <a href="{{ page.cran_url }}">CRAN</a>
-          {% endif %}
-          {% if page.paper_url %}
-            <a href="{{ page.paper_url }}">Paper</a>
-          {% endif %}
-          <a href="{{ '/' | relative_url }}#projects-title">Back to projects</a>
+    <main id="main" class="bio-shell photo-shell">
+      <section class="photo-page" aria-label="Photos of Xinlong Du">
+        <div class="photo-stack">
+          {{ content }}
         </div>
-      </header>
-
-      <article class="project-detail-content">
-        {{ content }}
-      </article>
+      </section>
     </main>
   </body>
 </html>
