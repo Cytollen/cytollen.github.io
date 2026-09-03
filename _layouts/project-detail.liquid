@@ -8,6 +8,7 @@
     {% assign asset_version = site.time | date: '%s' %}
     <link rel="icon" type="image/svg+xml" href="{{ '/assets/img/favicon.svg' | relative_url }}?v={{ asset_version }}">
     <link rel="stylesheet" href="{{ '/assets/css/bio.css' | relative_url }}?v={{ asset_version }}">
+    {% include analytics.liquid %}
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>

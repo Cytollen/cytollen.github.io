@@ -6,6 +6,8 @@ lang: en
 url: https://cytollen.github.io
 baseurl:
 
+umami_website_id: a98d7c01-0c8b-44a5-a46b-4c3cdd1dc710
+
 markdown: kramdown
 
 collections:
