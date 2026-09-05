@@ -213,8 +213,7 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  // Two-thirds of the previous 7.225rem visible toggle width.
-  width: calc(7.225rem * 2 / 3);
+  width: 6rem;
   min-height: 44px;
   padding: 0;
   border: 0;
@@ -245,6 +244,10 @@ a {
 
 .wind-chime-sound:hover {
   opacity: 0.8;
+}
+
+.wind-chime-sound-label {
+  display: none;
 }
 
 .hero-main {
@@ -742,6 +745,31 @@ a {
     transform: translateY(-2.44vw);
   }
 
+  .wind-chime-sound {
+    top: 100%;
+    flex-direction: column;
+    gap: 0.25rem;
+    width: 4rem;
+    padding: 0.25rem 0;
+    color: var(--muted);
+    font-family: var(--typewriter);
+    font-size: 0.625rem;
+    line-height: 1.2;
+  }
+
+  .wind-chime-sound img {
+    // Show only the speaker artwork; the live label sits below it on mobile.
+    width: 1.875rem;
+    height: 1.375rem;
+    object-fit: cover;
+    object-position: left center;
+  }
+
+  .wind-chime-sound-label {
+    display: block;
+    white-space: nowrap;
+  }
+
   .hero-main {
     width: auto;
     margin: 0;
@@ -762,19 +790,33 @@ a {
   }
 
   .hopfield-panel figcaption {
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 0.65rem 0.85rem;
-    padding-right: 0;
-    padding-left: 0;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 6.25rem);
+    gap: 0.65rem 0.5rem;
+    margin-top: 0;
+    text-align: left;
+  }
+
+  .hopfield-panel figcaption a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
   }
 
   .hopfield-controls {
+    grid-column: 1 / -1;
+    grid-row: 2;
     justify-content: flex-end;
   }
 
+  .hopfield-controls button {
+    min-height: 44px;
+  }
+
   .hopfield-status {
-    grid-column: 1 / -1;
+    grid-column: 2;
+    grid-row: 1;
     justify-self: end;
+    text-align: right;
   }
 
   .project-section,
@@ -799,22 +841,6 @@ a {
 
   .bio-links a {
     grid-template-columns: 2.5rem minmax(0, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
-  .hopfield-panel figcaption {
-    grid-template-columns: 1fr;
-  }
-
-  .hopfield-controls,
-  .hopfield-status {
-    justify-self: start;
-    justify-content: flex-start;
-  }
-
-  .hopfield-status {
-    grid-column: 1;
   }
 }
 
