@@ -6,13 +6,37 @@
     <title>Xinlong Du's Personal Webpage</title>
     <meta name="description" content="Website of Xinlong Du.">
     
-    <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg?v=1788465610">
-    <link rel="stylesheet" href="/assets/css/bio.css?v=1788465610">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg?v=1788645090">
+    <link
+      rel="preload"
+      as="image"
+      href="/assets/img/paper-background-zine-v1.webp"
+      type="image/webp"
+      fetchpriority="high"
+    >
+    <link
+      rel="preload"
+      as="image"
+      href="/assets/img/me/jungfraujoch-1440.webp"
+      type="image/webp"
+      imagesrcset="/assets/img/me/jungfraujoch-960.webp 960w, /assets/img/me/jungfraujoch-1440.webp 1440w"
+      imagesizes="(max-width: 800px) calc(100vw - 2rem), (max-width: 968px) calc(100vw - 2.5rem), 928px"
+    >
+    <link
+      rel="preload"
+      as="image"
+      href="/assets/img/me/mountain-selfie-1920.webp"
+      type="image/webp"
+      imagesrcset="/assets/img/me/mountain-selfie-960.webp 960w, /assets/img/me/mountain-selfie-1920.webp 1920w"
+      imagesizes="(max-width: 800px) calc(100vw - 2rem), (max-width: 968px) calc(100vw - 2.5rem), 928px"
+    >
+    <link rel="stylesheet" href="/assets/css/bio.css?v=1788645090">
     
   <script defer src="https://cloud.umami.is/script.js" data-website-id="a98d7c01-0c8b-44a5-a46b-4c3cdd1dc710"></script>
 
 
-    <script defer src="/assets/js/bio-hopfield.js?v=1788465610"></script>
+    <script defer src="/assets/js/bio-hopfield.js?v=1788645090"></script>
+    <script defer src="/assets/js/wind-chime.js?v=1788645090"></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -29,13 +53,29 @@
     <main id="main" class="bio-shell">
       <section class="bio-intro" aria-labelledby="bio-title">
         <div class="hero-layout">
-          <figure class="wind-chime-figure">
-            <img
-              src="/assets/img/wind-chime-zine-cutout-v2.png"
-              alt="A graphite and orange wind chime drawing on aged paper"
-              width="971"
-              height="1619"
-            >
+          <figure class="wind-chime-figure" data-wind-chime data-clapper-src="/assets/img/wind-chime-clapper-recovered-v3.png">
+            <button class="wind-chime-touch" type="button" aria-label="Send a breeze through the wind chime" aria-describedby="wind-chime-hint" disabled>
+              <picture>
+                <source
+                  type="image/webp"
+                  srcset="/assets/img/wind-chime-zine-cutout-v2-240.webp 240w, /assets/img/wind-chime-zine-cutout-v2-480.webp 480w"
+                  sizes="(max-width: 800px) 18vw, 176px"
+                >
+                <img
+                  src="/assets/img/wind-chime-zine-cutout-v2.png"
+                  alt="A graphite and orange wind chime drawing on aged paper"
+                  width="971"
+                  height="1619"
+                >
+              </picture>
+              <canvas class="wind-chime-canvas" width="971" height="1619" aria-hidden="true"></canvas>
+            </button>
+            <button class="wind-chime-sound" type="button" aria-label="Wind chime sound" aria-pressed="false" hidden>
+              <img class="chime-sound-on" src="/assets/img/wind-chime-sound-on-reference.png" alt="" width="564" height="132" aria-hidden="true">
+              <img class="chime-sound-off" src="/assets/img/wind-chime-sound-off-reference.png" alt="" width="564" height="132" aria-hidden="true">
+              <span class="wind-chime-sound-label screen-reader-only" aria-hidden="true">SOUND OFF</span>
+            </button>
+            <span id="wind-chime-hint" class="screen-reader-only">Brush past the chime to send a breeze through it. On a touch screen, tap; with a keyboard, press Enter or Space. Use the speaker button to enable or mute sound.</span>
           </figure>
 
           <div class="hero-main">
@@ -62,7 +102,7 @@
             <div class="bio-copy">
               <h1 id="bio-title" class="screen-reader-only">Xinlong Du</h1>
               <p class="lede">
-                <a class="bio-i-link" href="/me/" aria-label="Photos of Xinlong Du">I</a>'m a PhD student in Industrial Engineering at Purdue University, working in the <a class="bio-text-link" href="https://stochasticsystemslab.github.io">Stochastic System Lab</a> led by Prof. Harsha Honnappa. Previously, I studied Physics at <a class="bio-text-link" href="https://www.reed.edu/physics/">Reed College</a> and statistics at <a class="bio-text-link" href="https://www.stat.purdue.edu/">Purdue University</a>.
+                <a class="bio-i-link" href="/me/" aria-label="Photos of Xinlong Du">I</a>'m a PhD student in Industrial Engineering at Purdue University, working in the <a class="bio-text-link" href="https://stochasticsystemslab.github.io">Stochastic System Lab</a> led by Prof. Harsha Honnappa. Previously, I studied physics at <a class="bio-text-link" href="https://www.reed.edu/physics/">Reed College</a> and statistics at <a class="bio-text-link" href="https://www.stat.purdue.edu/">Purdue University</a>.
               </p>
               <p class="lede">
                 I'm mostly interested in solving inference problems in stochastic systems using modern machine learning techniques, but I also enjoy thinking about problems in game theory, reinforcement learning, and differential privacy.
