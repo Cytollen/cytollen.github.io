@@ -29,7 +29,7 @@ body {
   min-width: 320px;
   margin: 0;
   background-color: var(--paper);
-  background-image: url("{{ '/assets/img/paper-background-zine-v1.png' | relative_url }}");
+  background-image: url("{{ '/assets/img/paper-background-zine-v1.webp' | relative_url }}");
   background-position: center top;
   background-repeat: repeat-y;
   background-size: 100% auto;
@@ -153,14 +153,98 @@ a {
   width: min(100%, 175.5px);
   margin: 0;
   transform: none;
+  z-index: 2;
 }
 
-.wind-chime-figure img {
+.wind-chime-touch img,
+.wind-chime-canvas {
   display: block;
   width: 100%;
   height: auto;
   filter: saturate(0.92) contrast(0.96);
   mix-blend-mode: multiply;
+}
+
+.wind-chime-touch {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  line-height: 0;
+  cursor: default;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.wind-chime-touch:disabled {
+  cursor: default;
+}
+
+.wind-chime-touch:focus-visible,
+.wind-chime-sound:focus-visible {
+  outline: 1px dashed var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.wind-chime-canvas {
+  position: absolute;
+  inset: 0;
+  display: none;
+  pointer-events: none;
+}
+
+.wind-chime-ready .wind-chime-canvas {
+  display: block;
+}
+
+.wind-chime-ready picture {
+  visibility: hidden;
+}
+
+.wind-chime-sound {
+  position: absolute;
+  top: 93%;
+  left: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  // Two-thirds of the previous 7.225rem visible toggle width.
+  width: calc(7.225rem * 2 / 3);
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  line-height: 0;
+  transform: translateX(-50%);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.wind-chime-sound img {
+  display: block;
+  flex: none;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+}
+
+.wind-chime-sound[hidden],
+.wind-chime-sound .chime-sound-on,
+.wind-chime-sound[aria-pressed="true"] .chime-sound-off {
+  display: none;
+}
+
+.wind-chime-sound[aria-pressed="true"] .chime-sound-on {
+  display: block;
+}
+
+.wind-chime-sound:hover {
+  opacity: 0.8;
 }
 
 .hero-main {
@@ -649,7 +733,10 @@ a {
   }
 
   .wind-chime-figure {
-    position: static;
+    position: relative;
+    align-self: start;
+    left: auto;
+    top: auto;
     width: 89.25%;
     margin: 0;
     transform: translateY(-2.44vw);
