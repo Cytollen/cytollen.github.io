@@ -39,9 +39,12 @@
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header">
-      <a class="site-mark" href="{{ '/' | relative_url }}" aria-label="Xinlong Du, home">
-        <span class="site-mark-label">Home</span>
-      </a>
+      <nav class="primary-navigation" aria-label="Primary navigation">
+        <a class="site-mark" href="{{ '/' | relative_url }}" aria-label="Xinlong Du, home">
+          <span class="site-mark-label">Home</span>
+        </a>
+        <a href="{{ '/' | relative_url }}#projects-title">Projects</a>
+      </nav>
       <nav aria-label="Site navigation">
         <a href="mailto:{{ site.data.socials.email }}">Email</a>
       </nav>
@@ -116,22 +119,43 @@
         <p class="section-label" id="news-title">News</p>
         <div class="news-list">
           <article class="news-item">
-            <time class="news-date" datetime="2026-05-13">May 13, 2026</time>
+            <time class="news-date" datetime="2026-08-17">August 17, 2026</time>
             <p>
-              I'm presenting our work on "Neural Diffusion Intensity Models for Point Process Data" at the IISE Annual Conference &amp; Expo 2026 in Arlington, Texas.
+              I'm presenting our work, "Neural Diffusion Intensity Models for Point Process Data", at <a class="bio-text-link" href="https://www.auai.org/uai2026/">UAI 2026</a> in Amsterdam, the Netherlands.
             </p>
           </article>
         </div>
       </section>
 
       <section class="project-section" aria-labelledby="projects-title">
-        <p class="section-label">Projects</p>
+        <p class="section-label" id="projects-title">Projects</p>
+        <article class="project-item">
+          <div class="project-copy">
+            <p class="project-meta">2025-26 / paper</p>
+            <h2>NDIM</h2>
+            <p>
+              Neural Diffusion Intensity Models for Temporal Point Process Data. This is joint work with <a class="bio-text-link" href="https://stochasticsystemslab.github.io/people">Prof. Harsha Honnappa</a> and <a class="bio-text-link" href="https://varao.github.io">Prof. Rao Vinayak</a>. By identifying a common structure in the posterior dynamics of a diffusive intensity, we proposed a variational framework for training a prior model and an amortized posterior correction. This replaces the expensive MCMC simulations at inference time, while still retaining the posterior prediction accuracy.
+            </p>
+            <div class="project-actions" aria-label="NDIM links">
+              <a href="https://openreview.net/forum?id=VzPFh8kOmo#discussion">Paper</a>
+            </div>
+          </div>
+          <a class="project-figure project-figure-ndim" href="https://openreview.net/forum?id=VzPFh8kOmo#discussion" aria-label="Read the NDIM paper on OpenReview">
+            <img
+              src="{{ '/assets/img/package_figures/ndim-posterior-comparison.png' | relative_url }}"
+              alt="True prior, true posterior, and learned posterior intensity over time, showing the learned posterior closely tracking the true posterior, with uncertainty bands and observed events."
+              width="2554"
+              height="1326"
+              loading="lazy"
+            >
+          </a>
+        </article>
         <article class="project-item">
           <div class="project-copy">
             <p class="project-meta">2024-25 / R package</p>
-            <h2 id="projects-title">SimBaRepro</h2>
+            <h2>SimBaRepro</h2>
             <p>
-              Simulation-based, finite-sample inference for privatized data. I worked with Prof. Jordan Awan and Zhanyu Wang to turn their research paper into an R package published on CRAN.
+              Simulation-based, finite-sample inference for privatized data. I worked with <a class="bio-text-link" href="https://jordan-awan.com">Prof. Jordan Awan</a> and <a class="bio-text-link" href="https://scholar.google.com/citations?user=_8eFuswAAAAJ&amp;hl=en">Zhanyu Wang</a> to turn their research paper into an R package published on CRAN.
             </p>
             <div class="project-actions" aria-label="SimBaRepro links">
               <a href="https://cran.r-project.org/web/packages/SimBaRepro/index.html">CRAN</a>

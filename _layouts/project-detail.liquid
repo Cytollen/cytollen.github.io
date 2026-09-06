@@ -21,9 +21,12 @@
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header">
-      <a class="site-mark" href="{{ '/' | relative_url }}" aria-label="Xinlong Du, home">
-        <span class="site-mark-label">Home</span>
-      </a>
+      <nav class="primary-navigation" aria-label="Primary navigation">
+        <a class="site-mark" href="{{ '/' | relative_url }}" aria-label="Xinlong Du, home">
+          <span class="site-mark-label">Home</span>
+        </a>
+        <a href="{{ '/' | relative_url }}#projects-title">Projects</a>
+      </nav>
       <nav aria-label="Site navigation">
         <a href="mailto:{{ site.data.socials.email }}">Email</a>
       </nav>
