@@ -278,21 +278,20 @@ a {
 }
 
 .hopfield-stage {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 22rem;
-  align-items: start;
-  gap: 1rem;
+  position: relative;
 }
 
 .hopfield-guide {
-  margin-top: -0.5rem;
+  position: absolute;
+  left: calc(100% - 5.5rem);
+  top: 32%;
+  width: min(22rem, calc((100vw - 62rem) / 2 + 4.5rem));
 }
 
 .hopfield-guide-art {
   display: block;
   width: 100%;
   height: auto;
-  mix-blend-mode: darken;
 }
 
 .hopfield-canvas {
@@ -767,37 +766,9 @@ a {
   font-size: 0.68rem;
 }
 
-@media (min-width: 801px) and (max-width: 1200px) {
-  .hero-layout {
-    display: grid;
-    grid-template-columns: 7rem minmax(0, 1fr);
-    gap: 1rem;
-  }
-
-  .wind-chime-figure {
-    position: relative;
-    align-self: start;
-    left: auto;
-    top: 0;
-    width: 100%;
-  }
-
-  .hero-main {
-    width: auto;
-    margin: 0;
-  }
-
-  .hopfield-stage {
-    display: block;
-  }
-
+@media (max-width: 1399px) {
   .hopfield-guide {
     display: none;
-  }
-
-  .hopfield-panel {
-    margin: -2.5rem 0 0;
-    transform: none;
   }
 }
 

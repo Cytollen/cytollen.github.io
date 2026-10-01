@@ -70,7 +70,7 @@
   let gridBox = null;
   let interactionTracked = false;
   let userInteracted = false;
-  let discoveredInverse = false;
+  let puzzleSolved = false;
 
   initializeState();
   draw();
@@ -592,8 +592,12 @@
       }
     }
 
-    if (!discoveredInverse && userInteracted && overlap === -nodeCount) {
-      discoveredInverse = true;
+    if (
+      !puzzleSolved &&
+      userInteracted &&
+      (overlap === -nodeCount || state.every((value) => value === 1))
+    ) {
+      puzzleSolved = true;
       if (challenge) challenge.textContent = "Well, good for you… I guess.";
       if (guideArt) guideArt.src = guideArt.dataset.responseSrc;
     }
