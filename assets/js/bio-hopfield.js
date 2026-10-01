@@ -592,11 +592,7 @@
       }
     }
 
-    if (
-      !puzzleSolved &&
-      userInteracted &&
-      (overlap === -nodeCount || state.every((value) => value === 1))
-    ) {
+    if (!puzzleSolved && userInteracted && overlap === -nodeCount) {
       puzzleSolved = true;
       if (challenge) challenge.textContent = "Well, good for you… I guess.";
       if (guideArt) guideArt.src = guideArt.dataset.responseSrc;
