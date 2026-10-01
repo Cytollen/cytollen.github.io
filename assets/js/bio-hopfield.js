@@ -4,6 +4,7 @@
   const canvas = document.getElementById("hopfield-name");
   const status = document.getElementById("hopfield-status");
   const challenge = document.getElementById("hopfield-challenge");
+  const guideArt = document.querySelector(".hopfield-guide-art");
   const controls = document.querySelectorAll("[data-hopfield-action]");
 
   if (!canvas) return;
@@ -594,6 +595,7 @@
     if (!discoveredInverse && userInteracted && overlap === -nodeCount) {
       discoveredInverse = true;
       if (challenge) challenge.textContent = "Well, good for you… I guess.";
+      if (guideArt) guideArt.src = guideArt.dataset.responseSrc;
     }
   }
 
