@@ -79,25 +79,39 @@
           </figure>
 
           <div class="hero-main">
-            <figure class="hopfield-panel">
-              <canvas
-                id="hopfield-name"
-                class="hopfield-canvas"
-                aria-label="An interactive Hopfield network recalling the name Xinlong Du"
-              ></canvas>
-              <figcaption>
-                <span>
-                  <a href="https://en.wikipedia.org/wiki/Hopfield_network" target="_blank" rel="noopener">
-                    Hopfield network
-                  </a>
-                </span>
-                <span class="hopfield-controls" aria-label="Hopfield controls">
-                  <button type="button" data-hopfield-action="shuffle">Shuffle</button>
-                  <button type="button" data-hopfield-action="clear">Clear</button>
-                </span>
-                <span id="hopfield-status" class="hopfield-status">initializing</span>
-              </figcaption>
-            </figure>
+            <div class="hopfield-stage">
+              <figure class="hopfield-panel">
+                <canvas
+                  id="hopfield-name"
+                  class="hopfield-canvas"
+                  aria-label="An interactive Hopfield network recalling the name Xinlong Du"
+                ></canvas>
+                <figcaption>
+                  <span>
+                    <a href="https://en.wikipedia.org/wiki/Hopfield_network" target="_blank" rel="noopener">
+                      Hopfield network
+                    </a>
+                  </span>
+                  <span class="hopfield-controls" aria-label="Hopfield controls">
+                    <button type="button" data-hopfield-action="shuffle">Shuffle</button>
+                    <button type="button" data-hopfield-action="clear">Clear</button>
+                  </span>
+                  <span id="hopfield-status" class="hopfield-status">initializing</span>
+                </figcaption>
+              </figure>
+              <aside class="hopfield-guide" aria-label="A challenge from Xinlong Du">
+                <img
+                  class="hopfield-guide-portrait"
+                  src="{{ '/assets/img/hopfield-guide/xinlong-headshot-320.webp' | relative_url }}"
+                  alt="Illustrated headshot of Xinlong Du"
+                  width="320"
+                  height="267"
+                  loading="lazy"
+                  decoding="async"
+                >
+                <p id="hopfield-challenge" class="hopfield-guide-dialogue" aria-live="polite" aria-atomic="true">This binary Hopfield network also has another local minimizing state. Can you find it?</p>
+              </aside>
+            </div>
 
             <div class="bio-copy">
               <h1 id="bio-title" class="screen-reader-only">Xinlong Du</h1>

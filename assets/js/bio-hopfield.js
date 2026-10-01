@@ -3,6 +3,7 @@
 
   const canvas = document.getElementById("hopfield-name");
   const status = document.getElementById("hopfield-status");
+  const challenge = document.getElementById("hopfield-challenge");
   const controls = document.querySelectorAll("[data-hopfield-action]");
 
   if (!canvas) return;
@@ -67,6 +68,8 @@
   let canvasBox = { height: 0, ratio: 0, width: 0 };
   let gridBox = null;
   let interactionTracked = false;
+  let userInteracted = false;
+  let discoveredInverse = false;
 
   initializeState();
   draw();
@@ -312,6 +315,8 @@
   }
 
   function trackNameplateInteraction(action) {
+    userInteracted = true;
+
     if (
       interactionTracked ||
       !window.umami ||
@@ -586,6 +591,10 @@
       }
     }
 
+    if (!discoveredInverse && userInteracted && overlap === -nodeCount) {
+      discoveredInverse = true;
+      if (challenge) challenge.textContent = "Well, good for you… I guess.";
+    }
   }
 
   function recallProgress() {
