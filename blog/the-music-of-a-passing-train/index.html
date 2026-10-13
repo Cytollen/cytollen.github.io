@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Music of a Passing Train | Xinlong Du</title>
+    <meta name="description" content="Estimating train speed from musical intervals, and the pleasure of exploring a question in the era of AI.">
+    <link rel="canonical" href="https://cytollen.github.io/blog/the-music-of-a-passing-train/">
+    
+    <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg?v=1791865951">
+    <link rel="preload" as="image" href="/assets/img/paper-background-zine-v1.webp" type="image/webp" fetchpriority="high">
+    <link rel="stylesheet" href="/assets/css/bio.css?v=1791865951">
+    
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="a98d7c01-0c8b-44a5-a46b-4c3cdd1dc710"></script>
+
+
+    
+      <script>
+  window.MathJax = {
+    tex: {
+      tags: 'none'
+    }
+  };
+</script>
+<script id="MathJax-script" defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js"></script>
+
+    
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <nav class="primary-navigation" aria-label="Primary navigation">
+        <a class="site-mark" href="/" aria-label="Xinlong Du, home">
+          <span class="site-mark-label">Home</span>
+        </a>
+        <a href="/#projects-title">Projects</a>
+        <a href="/#blog-title">Blog</a>
+      </nav>
+      <nav aria-label="Site navigation">
+        <a href="mailto:du339@purdue.edu">Email</a>
+      </nav>
+    </header>
+
+    <main id="main" class="bio-shell blog-post-shell">
+      <article>
+        <header class="blog-post-header">
+          <p class="section-label">Blog</p>
+          <h1>The Music of a Passing Train</h1>
+          <p class="blog-meta"><time datetime="2026-10-12">October 12, 2026</time></p>
+        </header>
+
+        <div class="blog-content">
+          <p>I was cycling with a group of friends from Hyde Park in Chicago toward Indiana Dunes when a train roared past on the tracks beside us, sounding its horn. For a few seconds, my thoughts were scattered by the loud clatter of wheels on rails. As the noise faded and I re-gathered my thoughts, what stayed with me was the drop in the pitch of the train horn as it passed us. I recognize the Doppler effect, but</p>
+
+<p><em>could I estimate how fast the train was traveling just from that change in pitch?</em></p>
+
+<p>It turns out that the answer is yes. And with a small approximation, there is a surprisingly simple relationship between musical intervals and the speed of the train.</p>
+
+<h2 id="from-frequency-ratio-to-speed">From frequency ratio to speed</h2>
+
+<p>First, some notation:</p>
+
+\[\begin{aligned}
+ v_t &amp;:\ \text{the speed of the train},\\
+ v_s &amp;:\ \text{the speed of sound in the surrounding air},\\
+ f^* &amp;:\ \text{the horn's frequency when the train is at rest},\\
+ f^+ &amp;:\ \text{the frequency heard as the train approaches},\\
+ f^- &amp;:\ \text{the frequency heard as the train moves away}.
+\end{aligned}\]
+
+<p>I was moving on my bicycle, but imagine that I had stopped to listen<sup id="fnref:bicycle"><a href="#fn:bicycle" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>. Assume still air, a constant train speed well below the speed of sound, and one steady frequency component of the horn that we can follow throughout. Compare the horn’s pitch well before and after the train passes, so its motion is almost directly toward or away from me.</p>
+
+<p>Under these assumptions, the Doppler effect gives</p>
+
+\[f^+=f^*\frac{v_s}{v_s-v_t},
+ \qquad
+ f^-=f^*\frac{v_s}{v_s+v_t}.\]
+
+<p>Taking their ratio,</p>
+
+\[R:=\frac{f^+}{f^-}=\frac{v_s+v_t}{v_s-v_t}.\]
+
+<p><em>The original frequency \(f^*\) cancels out</em>. We don’t need to know the original frequency of the horn, only the ratio between \(f^+\) and \(f^-\). Solving for the speed of the train gives</p>
+
+\[v_t=\frac{R-1}{R+1}\,v_s.
+\tag{1}\label{eq:doppler}\]
+
+<h2 id="the-connection-to-musical-intervals">The connection to musical intervals</h2>
+
+<p>In twelve-tone equal temperament, the tuning system underlying most modern Western music, one octave corresponds to a doubling of the frequency. Each semitone multiplies the frequency by a factor of \(2^{1/12}\), so a difference of \(n\) semitones corresponds to the ratio</p>
+
+\[R=2^{n/12}.\]
+
+<p>Here, \(n\) denotes the number of semitones between the higher pitch \(f^+\) and the lower pitch \(f^-\). A minor second has \(n=1\), a minor third has \(n=3\), and an octave has \(n=12\). More generally, \(n=12\log_2(f^+/f^-)\), which need not be an integer.</p>
+
+<p>Substituting this frequency ratio into \(\eqref{eq:doppler}\) yields</p>
+
+\[\boxed{\displaystyle v_t=\frac{2^{n/12}-1}{2^{n/12}+1}\,v_s.}\]
+
+<p><em>A musical interval can tell us the speed of a train relative to the speed of sound.</em></p>
+
+<p>At approximately \(20^\circ\mathrm{C}\), the speed of sound in air is \(v_s\approx343\ \mathrm{m/s}\). That gives us the following correspondence:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Musical interval</th>
+      <th style="text-align: center">Semitones \(n\)</th>
+      <th style="text-align: right">Train speed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Minor second</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: right">35.7 km/h</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Major second</td>
+      <td style="text-align: center">2</td>
+      <td style="text-align: right">71.2 km/h</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Minor third</td>
+      <td style="text-align: center">3</td>
+      <td style="text-align: right">106.7 km/h</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Major third</td>
+      <td style="text-align: center">4</td>
+      <td style="text-align: right">142.0 km/h</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Perfect fourth</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: right">177.1 km/h</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Tritone</td>
+      <td style="text-align: center">6</td>
+      <td style="text-align: right">211.9 km/h</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: center">\(\vdots\)</td>
+      <td style="text-align: right"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Octave</td>
+      <td style="text-align: center">12</td>
+      <td style="text-align: right">411.6 km/h</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>There is an even simpler rule of thumb. Since</p>
+
+\[\frac{2^{n/12}-1}{2^{n/12}+1}
+ =\tanh\!\left(\frac{n\ln 2}{24}\right),\]
+
+<p>we can approximate \(\tanh x\) with a linear function for small \(x\) so that</p>
+
+\[v_t \approx (35\ \mathrm{km/h})\,n.\]
+
+<p>In ordinary train speeds, <em>each semitone of pitch difference corresponds to roughly 35 km/h</em>. A drop of a minor third, or three semitones, gives an estimate of <strong>105 km/h</strong> (exact calculation gives 106.7 km/h). For a drop of an entire octave, the linear approximation gives <strong>420 km/h</strong> (exact calculation gives 411.6 km/h).<sup id="fnref:mars"><a href="#fn:mars" class="footnote" rel="footnote" role="doc-noteref">2</a></sup> For speeds below 400 km/h, this linear approximation is off by at most \(2\%\).</p>
+
+<h2 id="a-thought-in-the-era-of-ai">A thought in the era of AI</h2>
+
+<p>While I was still on my way to Indiana Dunes, I checked the reasoning above by talking to ChatGPT. Later, I also asked it to convert my LaTeX draft to Markdown and polish the language. That made me wonder: what remains valuable about exploring a question when AI can help us reach an answer so quickly?</p>
+
+<p>For me, much of the joy lies in noticing a phenomenon, formulating a question, and then pursuing an answer. AI may discover connections much faster than we do, and uncover beautiful connections that we would never have discovered on our own. That does not diminish the pleasure of exploring and understanding for ourselves. The next time I hear a train pass by, I’ll be able to estimate its speed, and also remember the pleasure of working through this problem.</p>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:bicycle">
+      <p>Had I known my speed and direction, I could have accounted for my own motion. But I ride too fast to be measurable… <a href="#fnref:bicycle" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:mars">
+      <p>Just in case you are reading this on Mars, where sound travels at roughly \(240\)–\(250\ \mathrm{m/s}\) depending on its frequency, similar calculations will give about <strong>25–26 km/h per semitone</strong> instead of Earth’s <strong>35.7 km/h</strong>. (<a href="https://www.nasa.gov/solar-system/what-sounds-captured-by-nasas-perseverance-rover-reveal-about-mars/">NASA</a>) <a href="#fnref:mars" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        </div>
+
+        <footer class="blog-post-footer">
+          <a class="bio-text-link" href="/#blog-title">Back to blog</a>
+        </footer>
+      </article>
+    </main>
+  </body>
+</html>
