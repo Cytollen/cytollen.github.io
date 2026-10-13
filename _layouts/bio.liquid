@@ -44,6 +44,7 @@
           <span class="site-mark-label">Home</span>
         </a>
         <a href="{{ '/' | relative_url }}#projects-title">Projects</a>
+        <a href="{{ '/' | relative_url }}#blog-title">Blog</a>
       </nav>
       <nav aria-label="Site navigation">
         <a href="mailto:{{ site.data.socials.email }}">Email</a>
@@ -187,6 +188,22 @@
             >
           </a>
         </article>
+      </section>
+
+      <section class="blog-section" aria-labelledby="blog-title">
+        <p class="section-label" id="blog-title">Blog</p>
+        <div class="blog-list">
+          {% for post in site.posts %}
+            <article class="blog-item">
+              <p class="blog-meta"><time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%B %-d, %Y' }}</time></p>
+              <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+              <p>{{ post.description }}</p>
+              <div class="project-actions">
+                <a href="{{ post.url | relative_url }}" aria-label="Read {{ post.title | escape }}">Read post</a>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
       </section>
 
     </main>
