@@ -68,7 +68,7 @@ $$
 
 *A musical interval can tell us the speed of a train relative to the speed of sound.*
 
-At approximately $$20^\circ\mathrm{C}$$, the speed of sound in air is $$v_s\approx343\ \mathrm{m/s}$$. That gives us the following correspondence:
+At approximately $$20^\circ\mathrm{C}$$, the speed of sound in air is $$v_s\approx1234.8\ \mathrm{km/h}$$. That gives us the following correspondence:
 
 | Musical interval | Semitones $$n$$ | Train speed |
 | :--- | :---: | ---: |
@@ -104,4 +104,4 @@ For me, much of the joy lies in noticing a phenomenon, formulating a question, a
 
 [^bicycle]: Had I known my speed and direction, I could have accounted for my own motion. But I ride too fast to be measurable...
 
-[^mars]: Just in case you are reading this on Mars, where sound travels at roughly $$240$$--$$250\ \mathrm{m/s}$$ depending on its frequency, similar calculations will give about **25--26 km/h per semitone** instead of Earth's **35.7 km/h**. ([NASA](https://www.nasa.gov/solar-system/what-sounds-captured-by-nasas-perseverance-rover-reveal-about-mars/))
+[^mars]: Just in case you are reading this on Mars, where sound travels at roughly $$864$$--$$900\ \mathrm{km/h}$$ depending on its frequency, similar calculations will give about **25--26 km/h per semitone** instead of Earth's **35.7 km/h**. ([NASA](https://www.nasa.gov/solar-system/what-sounds-captured-by-nasas-perseverance-rover-reveal-about-mars/))
